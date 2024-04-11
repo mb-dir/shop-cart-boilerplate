@@ -1,5 +1,5 @@
 <script setup>
-import { router } from "@inertiajs/vue3";
+import { router, Link } from "@inertiajs/vue3";
 
 const handleLogout = () => {
     router.post(route("logout"));
@@ -25,12 +25,28 @@ const handleLogout = () => {
                     >
                         Log out
                     </button>
+                    <Link :href="route('product.get')" class="link"
+                        >Products</Link
+                    >
                 </div>
             </div>
         </nav>
     </header>
 
-    <main>
+    <main class="main">
         <slot />
     </main>
 </template>
+
+<style scoped>
+.main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.link {
+    color: white;
+}
+</style>
