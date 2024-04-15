@@ -1,5 +1,6 @@
 <script setup>
 import AuthLayout from "../Layouts/AuthLayout.vue";
+import { router } from "@inertiajs/vue3";
 
 const props = defineProps({
     products: { type: Array, required: true },
@@ -7,6 +8,7 @@ const props = defineProps({
 </script>
 
 <template>
+    {{ $page.props.flash }}
     <AuthLayout>
         <div class="products">
             <div class="product" v-for="product in products">
@@ -14,7 +16,13 @@ const props = defineProps({
                 <div class="right">
                     {{ product.price }}
 
-                    <button>Add to cart</button>
+                    <button
+                        @click="
+                            router.post(route('cart.add', { id: product.id }))
+                        "
+                    >
+                        Add to cart
+                    </button>
                 </div>
             </div>
         </div>
