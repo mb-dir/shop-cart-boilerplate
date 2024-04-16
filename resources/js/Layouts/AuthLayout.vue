@@ -1,5 +1,6 @@
 <script setup>
 import { router, Link } from "@inertiajs/vue3";
+import Toast from "../Components/Toast.vue";
 
 const handleLogout = () => {
     router.post(route("logout"));
@@ -7,6 +8,7 @@ const handleLogout = () => {
 </script>
 
 <template>
+    <Toast />
     <header>
         <nav
             class="bg-white border-gray-200 px-4 lg:px-6 py-6 dark:bg-gray-800"
