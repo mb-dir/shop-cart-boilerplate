@@ -8,7 +8,6 @@ const props = defineProps({
 </script>
 
 <template>
-    {{ $page.props.flash }}
     <AuthLayout>
         <div class="products">
             <div class="product" v-for="product in products">

@@ -1,5 +1,5 @@
 <script setup>
-import { router, Link } from "@inertiajs/vue3";
+import { router, Link, usePage } from "@inertiajs/vue3";
 import Toast from "../Components/Toast.vue";
 
 const handleLogout = () => {
@@ -30,6 +30,7 @@ const handleLogout = () => {
                     <Link :href="route('product.get')" class="link"
                         >Products</Link
                     >
+                    <div>{{ $page.props.cart.total }}</div>
                 </div>
             </div>
         </nav>
