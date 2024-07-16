@@ -29,4 +29,4 @@ Route::middleware('auth')->group(function () {
     Route::post('/add-to-cart/{id}', [CartController::class, 'addToCart'])->name('cart.add');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

@@ -3,14 +3,14 @@ import AuthLayout from "../Layouts/AuthLayout.vue";
 import CartItem from "../Components/CartItem.vue";
 
 const props = defineProps({
-    cart: { type: Object },
+    cart: { type: Object, default: null },
 });
 </script>
 
 <template>
     <AuthLayout>
         <div
-            v-if="Object.keys(props.cart.items).length > 0"
+            v-if="props.cart && Object.keys(props.cart?.items).length > 0"
             class="p-6 bg-gray-100 rounded-lg shadow-md"
         >
             <div class="space-y-4">
@@ -37,5 +37,6 @@ const props = defineProps({
                 </p>
             </div>
         </div>
+        <div v-else>Koszyk jest pusty</div>
     </AuthLayout>
 </template>

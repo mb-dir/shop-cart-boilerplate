@@ -16,8 +16,14 @@ class CartController extends Controller
     }
 
     // We pass product id instead of the whole product, cuz id is used as array key which represents given product
-    public function addToCart(int $id)
+    public function addToCart(Request $request, int $id)
     {
+        $newQuantity = $request->input('quantity', 1);
+
+        if ($newQuantity < 1) {
+            return redirect()->back()->with('error', "Invalid quantity.");
+        }
+
         $product = Product::find($id);
 
         if (!$product) {
@@ -30,21 +36,26 @@ class CartController extends Controller
             'totalQuantity' => 0,
         ]);
 
-        // Adding new item when initializing cart
-        if (!isset($cart['items'][$id])) {
-            $cart['items'][$id] = [
-                "name" => $product->name,
-                "price" => $product->price,
-                "quantity" => 1
-            ];
+        if (isset($cart['items'][$id])) {
+            // Update item quantity
+            $cart['items'][$id]['quantity'] = $newQuantity;
         } else {
-            // Adding existing item
-            $cart['items'][$id]['quantity']++;
+            // Add new item
+            $cart['items'][$id] = [
+                'id' => $product->id,
+                'name' => $product->name,
+                'price' => $product->price,
+                'quantity' => $newQuantity,
+            ];
         }
 
-        // Update total price and number of items in cart
-        $cart['totalPrice'] += $product->price;
-        $cart['totalQuantity'] += 1;
+        // Recalculate total price and quantity
+        $cart['totalPrice'] = 0;
+        $cart['totalQuantity'] = 0;
+        foreach ($cart['items'] as $item) {
+            $cart['totalPrice'] += $item['price'] * $item['quantity'];
+            $cart['totalQuantity'] += $item['quantity'];
+        }
 
         session()->put('cart', $cart);
 

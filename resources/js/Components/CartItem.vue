@@ -7,6 +7,10 @@ const props = defineProps({
 const form = useForm({
     quantity: props.item.quantity,
 });
+
+function onChange() {
+    form.post(route("cart.add", { id: props.item.id }));
+}
 </script>
 
 <template>
@@ -19,6 +23,7 @@ const form = useForm({
         </div>
         <div class="flex items-center space-x-2">
             <input
+                @change="onChange"
                 type="number"
                 min="1"
                 v-model="form.quantity"

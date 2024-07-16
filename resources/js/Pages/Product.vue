@@ -1,5 +1,6 @@
 <script setup>
 import AuthLayout from "../Layouts/AuthLayout.vue";
+import ItemTile from "../Components/ItemTile.vue";
 import { router } from "@inertiajs/vue3";
 
 const props = defineProps({
@@ -10,20 +11,7 @@ const props = defineProps({
 <template>
     <AuthLayout>
         <div class="products">
-            <div class="product" v-for="product in products">
-                {{ product.name }}
-                <div class="right">
-                    {{ product.price }}
-
-                    <button
-                        @click="
-                            router.post(route('cart.add', { id: product.id }))
-                        "
-                    >
-                        Add to cart
-                    </button>
-                </div>
-            </div>
+            <ItemTile v-for="item in products" :item />
         </div>
     </AuthLayout>
 </template>
@@ -34,17 +22,5 @@ const props = defineProps({
     flex-direction: column;
     gap: 2rem;
     padding: 2rem;
-}
-.product {
-    border: 1px solid black;
-    padding: 1rem 2rem;
-    width: 650px;
-    display: flex;
-    justify-content: space-between;
-}
-
-.right {
-    display: flex;
-    gap: 1rem;
 }
 </style>
