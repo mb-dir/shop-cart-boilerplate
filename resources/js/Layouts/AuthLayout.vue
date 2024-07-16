@@ -27,10 +27,21 @@ const handleLogout = () => {
                     >
                         Log out
                     </button>
-                    <Link :href="route('product.get')" class="link"
+                    <Link :href="route('product.index')" class="link"
                         >Products</Link
                     >
-                    <div>{{ $page.props.cart.total }}</div>
+                    <div
+                        class="bg-white rounded-sm p-2 ml-4 shadow-lg text-black"
+                    >
+                        <Link
+                            :href="route('cart.index')"
+                            v-if="$page.props.cart?.items"
+                            >{{ $page.props.cart.totalPrice }}zł({{
+                                $page.props.cart.totalQuantity
+                            }})
+                        </Link>
+                        <span v-else>Cart is empty</span>
+                    </div>
                 </div>
             </div>
         </nav>

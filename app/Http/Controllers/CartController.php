@@ -4,9 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class CartController extends Controller
 {
+
+    public function index()
+    {
+        $cart = session()->get('cart');
+        return Inertia::render('Cart', compact('cart'));
+    }
+
     // We pass product id instead of the whole product, cuz id is used as array key which represents given product
     public function addToCart(int $id)
     {
@@ -18,7 +26,8 @@ class CartController extends Controller
 
         $cart = session()->get('cart', [
             'items' => [],
-            'total' => 0
+            'totalPrice' => 0,
+            'totalQuantity' => 0,
         ]);
 
         // Adding new item when initializing cart
@@ -33,8 +42,9 @@ class CartController extends Controller
             $cart['items'][$id]['quantity']++;
         }
 
-        // Update total price
-        $cart['total'] += $product->price;
+        // Update total price and number of items in cart
+        $cart['totalPrice'] += $product->price;
+        $cart['totalQuantity'] += 1;
 
         session()->put('cart', $cart);
 
