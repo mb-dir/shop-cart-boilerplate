@@ -1,5 +1,5 @@
 <script setup>
-import { useForm } from "@inertiajs/vue3";
+import { useForm, router } from "@inertiajs/vue3";
 const props = defineProps({
     item: { type: Object, required: true },
 });
@@ -31,6 +31,7 @@ function onChange() {
             />
             <button
                 class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500"
+                @click="router.post(route('cart.item.delete', { id: item.id }))"
             >
                 Delete item
             </button>

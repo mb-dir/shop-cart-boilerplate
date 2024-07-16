@@ -61,4 +61,28 @@ class CartController extends Controller
 
         return redirect()->back()->with('message', "Added to cart!");
     }
+
+    public function deleteItem(int $id)
+    {
+        $cart = session()->get('cart');
+
+        unset($cart['items'][$id]);
+
+        // Recalculate total price and quantity
+        $cart['totalPrice'] = 0;
+        $cart['totalQuantity'] = 0;
+        foreach ($cart['items'] as $item) {
+            $cart['totalPrice'] += $item['price'] * $item['quantity'];
+            $cart['totalQuantity'] += $item['quantity'];
+        }
+
+        // If the cart is empty, reset the session
+        if (empty($cart['items'])) {
+            session()->forget('cart');
+        } else {
+            session()->put('cart', $cart);
+        }
+
+        return redirect()->back()->with('message', "Item was del!eted");
+    }
 }
