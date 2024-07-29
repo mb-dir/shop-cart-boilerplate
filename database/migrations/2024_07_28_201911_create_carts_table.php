@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('carts', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained();
-            $table->unsignedInteger('amount')->default(0);
-            $table->decimal('sum')->default(0.00);
+            $table->unsignedInteger('totalQuantity')->default(0);
+            $table->decimal('totalPrice')->default(0.00);
             $table->timestamps();
         });
     }
