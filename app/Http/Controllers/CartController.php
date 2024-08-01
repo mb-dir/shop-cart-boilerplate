@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CartItem;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -20,44 +21,13 @@ class CartController extends Controller
     {
         $newQuantity = $request->input('quantity', 1);
 
-        if ($newQuantity < 1) {
-            return redirect()->back()->with('error', "Invalid quantity.");
-        }
-
         $product = Product::find($id);
 
-        if (!$product) {
-            abort(404);
+        $cart = session()->get('cart');
+
+        if (!is_null($cart)) {
+            $newItem = CartItem::create(['cart_id' => $cart->id, 'name' => $product->name, 'price' => $product->price, 'sequence' => 1, 'product_id' => $product->id, 'quantity' => $newQuantity]);
         }
-
-        $cart = session()->get('cart', [
-            'items' => [],
-            'totalPrice' => 0,
-            'totalQuantity' => 0,
-        ]);
-
-        if (isset($cart['items'][$id])) {
-            // Update item quantity
-            $cart['items'][$id]['quantity'] = $newQuantity;
-        } else {
-            // Add new item
-            $cart['items'][$id] = [
-                'id' => $product->id,
-                'name' => $product->name,
-                'price' => $product->price,
-                'quantity' => $newQuantity,
-            ];
-        }
-
-        // Recalculate total price and quantity
-        $cart['totalPrice'] = 0;
-        $cart['totalQuantity'] = 0;
-        foreach ($cart['items'] as $item) {
-            $cart['totalPrice'] += $item['price'] * $item['quantity'];
-            $cart['totalQuantity'] += $item['quantity'];
-        }
-
-        session()->put('cart', $cart);
 
         return redirect()->back()->with('message', "Added to cart!");
     }
