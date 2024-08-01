@@ -28,10 +28,8 @@ class CartItem extends Model
         // Invoke boot method of parent class
         parent::boot();
 
-        static::created(function () {
-            $cart = Cart::firstWhere('id', Auth::id())->load('items');
-
-            session()->put('cart', $cart);
+        static::created(function ($cartItem) {
+            $cartItem->cart->recalculate();
         });
     }
 }

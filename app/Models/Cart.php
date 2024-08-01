@@ -25,4 +25,19 @@ class Cart extends Model
     {
         return $this->belongsTo(Order::class);
     }
+
+    public function recalculate()
+    {
+        $totalQuantity = $this->items->sum('quantity');
+        $totalPrice = $this->items->sum(function ($item) {
+            return $item->price * $item->quantity;
+        });
+
+        $this->update([
+            'totalQuantity' => $totalQuantity,
+            'totalPrice' => $totalPrice,
+        ]);
+
+        session()->put('cart', $this);
+    }
 }
