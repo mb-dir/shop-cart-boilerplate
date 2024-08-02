@@ -32,7 +32,7 @@ function onChange() {
             <button
                 class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500"
                 @click="
-                    router.post(route('cart.item.delete', { product: item }))
+                    router.delete(route('cart.item.delete', { cartItem: item }))
                 "
             >
                 Delete item
