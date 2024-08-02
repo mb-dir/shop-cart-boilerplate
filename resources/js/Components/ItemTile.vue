@@ -1,18 +1,44 @@
 <script setup>
 import { usePage, router } from "@inertiajs/vue3";
 import { computed } from "vue";
+import { ref } from "vue";
+
 const props = defineProps({
     item: { type: Object, required: true },
 });
 
 const page = usePage();
+const cartItems = ref(page.props.cart.items);
 
-const quantity = computed(() => {
-    const retrivedItem = page.props.cart.items.filter(
-        (item) => item.product_id === props.item.id
-    )[0];
-    return retrivedItem ? retrivedItem.quantity + 1 : 1;
-});
+// Find the cart item related to the current product
+const retrivedItem = computed(() =>
+    cartItems.value.find((item) => item.product_id === props.item.id)
+);
+
+// Calculate the new quantity
+const quantity = computed(() =>
+    retrivedItem.value ? retrivedItem.value.quantity + 1 : 1
+);
+
+function onAddToCart() {
+    if (retrivedItem.value) {
+        // Update the existing cart item
+        router.patch(
+            route("cart.item.update", {
+                cartItem: retrivedItem.value,
+                quantity: quantity.value,
+            })
+        );
+    } else {
+        // Create a new cart item
+        router.post(
+            route("cart.item.store", {
+                product: props.item,
+                quantity: quantity.value,
+            })
+        );
+    }
+}
 </script>
 
 <template>
@@ -20,18 +46,10 @@ const quantity = computed(() => {
         {{ item.name }}
         <div class="right">
             {{ item.price }}
-
-            <button
-                @click="
-                    router.post(route('cart.add', { product: item, quantity }))
-                "
-            >
-                Add to cart
-            </button>
+            <button @click="onAddToCart">Add to cart</button>
         </div>
     </div>
 </template>
-
 <style scoped>
 .product {
     border: 1px solid black;

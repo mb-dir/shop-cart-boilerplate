@@ -9,7 +9,7 @@ const form = useForm({
 });
 
 function onChange() {
-    form.post(route("cart.add", { product: props.item }));
+    form.post(route("cart.add", { cartItem: props.item }));
 }
 </script>
 

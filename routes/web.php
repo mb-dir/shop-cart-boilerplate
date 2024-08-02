@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\CartItemController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
@@ -22,12 +23,12 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-
     Route::get('/product', [ProductController::class, 'index'])->name('product.index');
 
     Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
-    Route::post('/add-to-cart/{product}', [CartController::class, 'addToCart'])->name('cart.add');
-    Route::delete('/delete-item/{cartItem}', [CartController::class, 'deleteItem'])->name('cart.item.delete');
+    Route::post('/cart-item/{product}', [CartItemController::class, 'store'])->name('cart.item.store');
+    Route::patch('/cart-item/{cartItem}', [CartItemController::class, 'update'])->name('cart.item.update');
+    Route::delete('/cart-item/{cartItem}', [CartItemController::class, 'destory'])->name('cart.item.destory');
 });
 
 require __DIR__ . '/auth.php';
