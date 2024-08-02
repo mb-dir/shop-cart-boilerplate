@@ -31,7 +31,7 @@ class CartItemController extends Controller
         return redirect()->back()->with('message', "Item was updated");
     }
 
-    public function destroy(CartItem $cartItem)
+    public function destory(CartItem $cartItem)
     {
         $cartItem->delete();
         return redirect()->back()->with('message', "Item was deleted!");

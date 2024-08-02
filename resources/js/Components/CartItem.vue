@@ -9,7 +9,7 @@ const form = useForm({
 });
 
 function onChange() {
-    form.post(route("cart.add", { cartItem: props.item }));
+    form.patch(route("cart.item.update", { cartItem: props.item }));
 }
 </script>
 
@@ -32,7 +32,9 @@ function onChange() {
             <button
                 class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500"
                 @click="
-                    router.delete(route('cart.item.delete', { cartItem: item }))
+                    router.delete(
+                        route('cart.item.destory', { cartItem: item })
+                    )
                 "
             >
                 Delete item
