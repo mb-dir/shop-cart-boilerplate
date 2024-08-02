@@ -31,5 +31,9 @@ class CartItem extends Model
         static::created(function ($cartItem) {
             $cartItem->cart->recalculate();
         });
+
+        static::updated(function ($cartItem) {
+            $cartItem->cart->recalculate();
+        });
     }
 }

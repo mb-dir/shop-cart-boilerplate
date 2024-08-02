@@ -29,6 +29,7 @@ class Cart extends Model
     public function recalculate()
     {
         $totalQuantity = $this->items->sum('quantity');
+
         $totalPrice = $this->items->sum(function ($item) {
             return $item->price * $item->quantity;
         });

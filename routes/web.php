@@ -26,8 +26,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/product', [ProductController::class, 'index'])->name('product.index');
 
     Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
-    Route::post('/add-to-cart/{id}', [CartController::class, 'addToCart'])->name('cart.add');
-    Route::post('/delete-item/{id}', [CartController::class, 'deleteItem'])->name('cart.item.delete');
+    Route::post('/add-to-cart/{product}', [CartController::class, 'addToCart'])->name('cart.add');
+    Route::post('/delete-item/{product}', [CartController::class, 'deleteItem'])->name('cart.item.delete');
 });
 
 require __DIR__ . '/auth.php';

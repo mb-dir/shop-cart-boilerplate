@@ -17,16 +17,20 @@ class CartController extends Controller
     }
 
     // We pass product id instead of the whole product, cuz id is used as array key which represents given product
-    public function addToCart(Request $request, int $id)
+    public function addToCart(Request $request, Product $product)
     {
         $newQuantity = $request->input('quantity', 1);
-
-        $product = Product::find($id);
 
         $cart = session()->get('cart');
 
         if (!is_null($cart)) {
-            $newItem = CartItem::create(['cart_id' => $cart->id, 'name' => $product->name, 'price' => $product->price, 'sequence' => 1, 'product_id' => $product->id, 'quantity' => $newQuantity]);
+            $retrivedItem = $cart->items()->firstWhere('product_id', $product->id);
+            if (!is_null($retrivedItem)) {
+                $retrivedItem->quantity = $newQuantity;
+                $retrivedItem->save();
+            } else {
+                CartItem::create(['cart_id' => $cart->id, 'name' => $product->name, 'price' => $product->price, 'sequence' => 1, 'product_id' => $product->id, 'quantity' => $newQuantity]);
+            }
         }
 
         return redirect()->back()->with('message', "Added to cart!");

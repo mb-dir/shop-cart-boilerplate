@@ -8,10 +8,10 @@ const props = defineProps({
 const page = usePage();
 
 const quantity = computed(() => {
-    return page.props.cart?.items &&
-        page.props.cart.items[props.item.id]?.quantity
-        ? +page.props.cart.items[props.item.id].quantity + 1
-        : 1;
+    const retrivedItem = page.props.cart.items.filter(
+        (item) => item.product_id === props.item.id
+    )[0];
+    return retrivedItem ? retrivedItem.quantity + 1 : 1;
 });
 </script>
 
@@ -23,7 +23,7 @@ const quantity = computed(() => {
 
             <button
                 @click="
-                    router.post(route('cart.add', { id: item.id, quantity }))
+                    router.post(route('cart.add', { product: item, quantity }))
                 "
             >
                 Add to cart
