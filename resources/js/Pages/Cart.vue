@@ -1,6 +1,6 @@
 <script setup>
 import AuthLayout from "../Layouts/AuthLayout.vue";
-import CartItem from "../Components/CartItem.vue";
+import CartItemTile from "../Components/CartItemTile.vue";
 
 const props = defineProps({
     cart: { type: Object, default: null },
@@ -14,7 +14,7 @@ const props = defineProps({
             class="p-6 bg-gray-100 rounded-lg shadow-md"
         >
             <div class="space-y-4">
-                <CartItem
+                <CartItemTile
                     :item="item"
                     v-for="item in cart.items"
                     :key="item.id"
@@ -22,21 +22,19 @@ const props = defineProps({
             </div>
 
             <div class="mt-6">
-                <h2 class="text-xl font-semibold mb-2">
-                    Podsumowanie koszyka:
-                </h2>
+                <h2 class="text-xl font-semibold mb-2">Cart summary:</h2>
                 <p class="text-gray-700">
-                    Cena:
+                    Final price:
                     <span class="font-medium">{{ cart.totalPrice }} PLN</span>
                 </p>
                 <p class="text-gray-700">
-                    Ilość przedmiotów:
+                    Final quantity:
                     <span class="font-medium"
-                        >{{ cart.totalQuantity }} szt.</span
+                        >{{ cart.totalQuantity }} pcs.</span
                     >
                 </p>
             </div>
         </div>
-        <div v-else>Koszyk jest pusty</div>
+        <div v-else>Cart is empty</div>
     </AuthLayout>
 </template>

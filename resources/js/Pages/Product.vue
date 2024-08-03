@@ -1,7 +1,6 @@
 <script setup>
 import AuthLayout from "../Layouts/AuthLayout.vue";
-import ItemTile from "../Components/ItemTile.vue";
-import { router } from "@inertiajs/vue3";
+import ProductTile from "../Components/ProductTile.vue";
 
 const props = defineProps({
     products: { type: Array, required: true },
@@ -11,7 +10,7 @@ const props = defineProps({
 <template>
     <AuthLayout>
         <div class="products">
-            <ItemTile v-for="item in products" :item />
+            <ProductTile v-for="item in products" :item />
         </div>
     </AuthLayout>
 </template>
