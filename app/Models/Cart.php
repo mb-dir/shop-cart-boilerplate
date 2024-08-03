@@ -34,12 +34,25 @@ class Cart extends Model
             return $item->price * $item->quantity;
         });
 
+        // delete cart when user has deleted all items
+        if ($totalQuantity === 0) {
+            $this->deleteCart();
+            return;
+        };
+
         $this->update([
             'totalQuantity' => $totalQuantity,
             'totalPrice' => $totalPrice,
         ]);
 
         session()->put('cart', $this);
+    }
+
+    public function deleteCart()
+    {
+        $this->delete();
+
+        session()->forget('cart');
     }
 
     public static function boot()
