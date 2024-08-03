@@ -12,7 +12,7 @@ const cartItems = ref(page.props.cart.items);
 
 // Find the cart item related to the current product
 const retrivedItem = computed(() =>
-    cartItems.value.find((item) => item.product_id === props.item.id)
+    cartItems.value?.find((item) => item.product_id === props.item.id)
 );
 
 function onAddToCart() {

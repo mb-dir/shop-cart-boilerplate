@@ -34,7 +34,8 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        $cart = Cart::firstWhere('user_id', Auth::id())->load('items');
+        $cart =
+            optional(Cart::firstWhere('user_id', Auth::id()))->load('items');
 
         if (!is_null($cart)) {
             session()->put('cart', $cart);

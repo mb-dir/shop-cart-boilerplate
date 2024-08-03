@@ -9,7 +9,7 @@ class Cart extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['totalPrice', 'totalQuantity'];
+    protected $fillable = ['user_id', 'totalQuantity', 'totalPrice'];
 
     public function user()
     {
@@ -40,5 +40,14 @@ class Cart extends Model
         ]);
 
         session()->put('cart', $this);
+    }
+
+    public static function boot()
+    {
+        parent::boot();
+
+        static::created(function ($cart) {
+            session()->put('cart', $cart);
+        });
     }
 }

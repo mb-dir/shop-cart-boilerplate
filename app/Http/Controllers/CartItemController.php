@@ -8,6 +8,14 @@ use App\Models\CartItem;
 
 class CartItemController extends Controller
 {
+
+    protected $cartController;
+
+    public function __construct(CartController $cartController)
+    {
+        $this->cartController = $cartController;
+    }
+
     public function store(Request $request, Product $product)
     {
         $quantity = $request->input('quantity', 1);
@@ -15,6 +23,10 @@ class CartItemController extends Controller
         $cart = session()->get('cart');
 
         if (!is_null($cart)) {
+            CartItem::create(['cart_id' => $cart->id, 'name' => $product->name, 'price' => $product->price, 'sequence' => 1, 'product_id' => $product->id, 'quantity' => $quantity]);
+        } else {
+            $cart = $this->cartController->store();
+
             CartItem::create(['cart_id' => $cart->id, 'name' => $product->name, 'price' => $product->price, 'sequence' => 1, 'product_id' => $product->id, 'quantity' => $quantity]);
         }
 
