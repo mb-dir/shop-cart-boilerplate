@@ -15,18 +15,12 @@ const retrivedItem = computed(() =>
     cartItems.value.find((item) => item.product_id === props.item.id)
 );
 
-// Calculate the new quantity
-const quantity = computed(() =>
-    retrivedItem.value ? retrivedItem.value.quantity + 1 : 1
-);
-
 function onAddToCart() {
     if (retrivedItem.value) {
         // Update the existing cart item
         router.patch(
             route("cart.item.update", {
                 cartItem: retrivedItem.value,
-                quantity: quantity.value,
             })
         );
     } else {
@@ -34,7 +28,7 @@ function onAddToCart() {
         router.post(
             route("cart.item.store", {
                 product: props.item,
-                quantity: quantity.value,
+                quantity: 1,
             })
         );
     }

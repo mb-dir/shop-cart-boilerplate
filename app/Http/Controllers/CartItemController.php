@@ -23,9 +23,14 @@ class CartItemController extends Controller
 
     public function update(Request $request, CartItem $cartItem)
     {
-        $quantity = $request->input('quantity', 1);
+        $quantity = $request->input('quantity', null);
 
-        $cartItem->quantity = $quantity;
+        if ($quantity) {
+            $cartItem->quantity = $quantity;
+        } else {
+            $cartItem->quantity += 1;
+        }
+
         $cartItem->save();
 
         return redirect()->back()->with('message', "Item was updated");
