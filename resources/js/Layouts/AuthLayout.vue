@@ -2,10 +2,6 @@
 import { router, Link, usePage } from "@inertiajs/vue3";
 import Toast from "../Components/Toast.vue";
 
-const page = usePage();
-
-console.log(page.props.cart?.items);
-
 const handleLogout = () => {
     router.post(route("logout"));
 };

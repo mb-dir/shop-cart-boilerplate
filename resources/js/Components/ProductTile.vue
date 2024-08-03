@@ -1,14 +1,13 @@
 <script setup>
 import { usePage, router } from "@inertiajs/vue3";
-import { computed } from "vue";
-import { ref } from "vue";
+import { computed, ref } from "vue";
 
 const props = defineProps({
     item: { type: Object, required: true },
 });
 
 const page = usePage();
-const cartItems = ref(page.props.cart.items);
+const cartItems = computed(() => page.props.cart.items);
 
 // Find the cart item related to the current product
 const retrivedItem = computed(() =>
