@@ -14,11 +14,15 @@ const form = useForm({
     payment_type: 1,
     delivery_type: 1,
 });
+
+function onSubmit() {
+    form.post(route("order.store"));
+}
 </script>
 
 <template>
     <AuthLayout>
-        <form class="form-container">
+        <form class="form-container" @submit.prevent="onSubmit">
             <h1>Delivery and Payment</h1>
             <div class="form-group">
                 <label for="city">City</label>
@@ -113,6 +117,7 @@ const form = useForm({
                     </div>
                 </div>
             </div>
+            <button>Finalize</button>
         </form>
     </AuthLayout>
 </template>

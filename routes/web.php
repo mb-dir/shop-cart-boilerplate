@@ -32,6 +32,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/cart-item/{cartItem}', [CartItemController::class, 'destory'])->name('cart.item.destory');
 
     Route::get('/order', [OrderController::class, 'index'])->name('order.index');
+    Route::post('/order', [OrderController::class, 'store'])->name('order.store');
 });
 
 require __DIR__ . '/auth.php';

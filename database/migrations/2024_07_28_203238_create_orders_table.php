@@ -15,9 +15,12 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('cart_id')->constrained()->onDelete('cascade');
-            $table->unsignedSmallInteger('paymentType');
-            $table->unsignedSmallInteger('deliveryType');
+            $table->unsignedSmallInteger('payment_type');
+            $table->unsignedSmallInteger('delivery_type');
             $table->string('phone');
+            $table->string('city');
+            $table->string('main_street');
+            $table->string('house_number');
             $table->timestamps();
         });
     }
