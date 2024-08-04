@@ -11,8 +11,8 @@ const form = useForm({
     main_street: "",
     house_number: "",
     phone: "",
-    paymentType: 1,
-    deliveryType: 1,
+    payment_type: 1,
+    delivery_type: 1,
 });
 </script>
 
@@ -57,7 +57,7 @@ const form = useForm({
                             type="radio"
                             id="delivery1"
                             value="1"
-                            v-model="form.deliveryType"
+                            v-model="form.delivery_type"
                         />
                         <label for="delivery1">Standard Delivery</label>
                     </div>
@@ -66,7 +66,7 @@ const form = useForm({
                             type="radio"
                             id="delivery2"
                             value="2"
-                            v-model="form.deliveryType"
+                            v-model="form.delivery_type"
                         />
                         <label for="delivery2">Express Delivery</label>
                     </div>
@@ -75,7 +75,7 @@ const form = useForm({
                             type="radio"
                             id="delivery3"
                             value="3"
-                            v-model="form.deliveryType"
+                            v-model="form.delivery_type"
                         />
                         <label for="delivery3">Pickup</label>
                     </div>
@@ -89,7 +89,7 @@ const form = useForm({
                             type="radio"
                             id="payment1"
                             value="1"
-                            v-model="form.paymentType"
+                            v-model="form.payment_type"
                         />
                         <label for="payment1">Credit Card</label>
                     </div>
@@ -98,7 +98,7 @@ const form = useForm({
                             type="radio"
                             id="payment2"
                             value="2"
-                            v-model="form.paymentType"
+                            v-model="form.payment_type"
                         />
                         <label for="payment2">PayPal</label>
                     </div>
@@ -107,7 +107,7 @@ const form = useForm({
                             type="radio"
                             id="payment3"
                             value="3"
-                            v-model="form.paymentType"
+                            v-model="form.payment_type"
                         />
                         <label for="payment3">Cash on Delivery</label>
                     </div>

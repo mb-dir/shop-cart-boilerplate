@@ -9,8 +9,7 @@ class Order extends Model
 {
     use HasFactory;
 
-    // change kurwa paymentType and deliveryType
-    protected $fillable = ['user_id', 'cart_id', 'delivery_address_id', 'paymentType', 'deliveryType', 'phone'];
+    protected $fillable = ['user_id', 'cart_id', 'delivery_address_id', 'payment_type', 'delivery_type', 'phone', 'city', 'main_street', 'house_number'];
 
     public function user()
     {
@@ -20,10 +19,5 @@ class Order extends Model
     public function cart()
     {
         return $this->hasOne(Cart::class);
-    }
-
-    public function deliveryAddress()
-    {
-        return $this->hasMany(DeliveryAddress::class);
     }
 }
