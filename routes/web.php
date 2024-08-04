@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CartItemController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
@@ -29,6 +30,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/cart-item/{product}', [CartItemController::class, 'store'])->name('cart.item.store');
     Route::patch('/cart-item/{cartItem}', [CartItemController::class, 'update'])->name('cart.item.update');
     Route::delete('/cart-item/{cartItem}', [CartItemController::class, 'destory'])->name('cart.item.destory');
+
+    Route::get('/order', [OrderController::class, 'index'])->name('order.index');
 });
 
 require __DIR__ . '/auth.php';

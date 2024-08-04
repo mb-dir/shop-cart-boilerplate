@@ -9,6 +9,7 @@ class Order extends Model
 {
     use HasFactory;
 
+    // change kurwa paymentType and deliveryType
     protected $fillable = ['user_id', 'cart_id', 'delivery_address_id', 'paymentType', 'deliveryType', 'phone'];
 
     public function user()
