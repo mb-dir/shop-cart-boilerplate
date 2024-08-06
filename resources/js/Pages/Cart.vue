@@ -10,11 +10,12 @@ const props = defineProps({
 
 <template>
     <AuthLayout>
+        <h1>Your cart</h1>
         <div
             v-if="props.cart && Object.keys(props.cart?.items).length > 0"
-            class="p-6 bg-gray-100 rounded-lg shadow-md"
+            class="cart-container"
         >
-            <div class="space-y-4">
+            <div>
                 <CartItemTile
                     :item="item"
                     v-for="item in cart.items"
@@ -22,21 +23,42 @@ const props = defineProps({
                 />
             </div>
 
-            <div class="mt-6">
-                <h2 class="text-xl font-semibold mb-2">Cart summary:</h2>
-                <p class="text-gray-700">
-                    Final price:
-                    <span class="font-medium">{{ cart.total_price }} PLN</span>
-                </p>
-                <p class="text-gray-700">
-                    Final quantity:
-                    <span class="font-medium"
-                        >{{ cart.total_quantity }} pcs.</span
-                    >
-                </p>
+            <div class="cart-summary">
+                <div>
+                    <h2>Cart summary:</h2>
+                    <p>
+                        Final price:
+                        <span>{{ cart.total_price }} PLN</span>
+                    </p>
+                    <p>
+                        Final quantity:
+                        <span>{{ cart.total_quantity }} pcs.</span>
+                    </p>
+                </div>
+
                 <Link :href="route('order.index')">Make an order</Link>
             </div>
         </div>
         <div v-else>Cart is empty</div>
     </AuthLayout>
 </template>
+
+<style scoped>
+.cart-container {
+    display: grid;
+    grid-template-columns: 1fr 350px;
+    width: 100%;
+    gap: 2rem;
+}
+
+.cart-summary {
+    background: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    height: 250px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+</style>

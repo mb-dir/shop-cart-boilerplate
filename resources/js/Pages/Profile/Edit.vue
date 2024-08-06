@@ -9,7 +9,7 @@ defineProps({
 <template>
     <AuthLayout>
         <h1>The history of your orders</h1>
-        <table class="order-table">
+        <table class="order-table" v-if="orders.length > 0">
             <thead>
                 <tr>
                     <th>ID</th>
@@ -37,6 +37,7 @@ defineProps({
                 </tr>
             </tbody>
         </table>
+        <div v-else>No orders so far.</div>
     </AuthLayout>
 </template>
 

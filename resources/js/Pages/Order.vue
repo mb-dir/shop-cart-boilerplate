@@ -1,5 +1,6 @@
 <script setup>
 import AuthLayout from "../Layouts/AuthLayout.vue";
+import InputError from "@/Components/InputError.vue";
 import { useForm } from "@inertiajs/vue3";
 
 const props = defineProps({
@@ -22,36 +23,55 @@ function onSubmit() {
 
 <template>
     <AuthLayout>
+        <h1>Delivery and Payment</h1>
         <form class="form-container" @submit.prevent="onSubmit">
-            <h1>Delivery and Payment</h1>
-            <div class="form-group">
-                <label for="city">City</label>
-                <input id="city" placeholder="City" v-model="form.city" />
-            </div>
-            <div class="form-group">
-                <label for="main_street">Main Street</label>
-                <input
-                    id="main_street"
-                    placeholder="Main Street"
-                    v-model="form.main_street"
-                />
-            </div>
-            <div class="form-group">
-                <label for="house_number">House Number</label>
-                <input
-                    id="house_number"
-                    placeholder="House Number"
-                    v-model="form.house_number"
-                />
-            </div>
-            <div class="form-group">
-                <label for="phone">Phone</label>
-                <input
-                    type="tel"
-                    id="phone"
-                    placeholder="Phone"
-                    v-model="form.phone"
-                />
+            <div class="grid-container">
+                <div class="form-group">
+                    <label for="city">City</label>
+                    <input
+                        id="city"
+                        placeholder="City"
+                        type="text"
+                        v-model="form.city"
+                    />
+                    <InputError class="mt-2" :message="form.errors.city" />
+                </div>
+                <div class="form-group">
+                    <label for="main_street">Main Street</label>
+                    <input
+                        id="main_street"
+                        placeholder="Main Street"
+                        type="text"
+                        v-model="form.main_street"
+                    />
+                    <InputError
+                        class="mt-2"
+                        :message="form.errors.main_street"
+                    />
+                </div>
+                <div class="form-group">
+                    <label for="house_number">House Number</label>
+                    <input
+                        id="house_number"
+                        placeholder="House Number"
+                        type="text"
+                        v-model="form.house_number"
+                    />
+                    <InputError
+                        class="mt-2"
+                        :message="form.errors.house_number"
+                    />
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone</label>
+                    <input
+                        type="tel"
+                        id="phone"
+                        placeholder="Phone"
+                        v-model="form.phone"
+                    />
+                    <InputError class="mt-2" :message="form.errors.phone" />
+                </div>
             </div>
             <div class="form-group">
                 <label>Delivery Type</label>
@@ -124,13 +144,18 @@ function onSubmit() {
 
 <style scoped>
 .form-container {
-    max-width: 600px;
     width: 100%;
     margin: auto;
     padding: 20px;
     background: #f9f9f9;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
 }
 
 .form-group {
@@ -164,11 +189,6 @@ function onSubmit() {
 
 .radio-group label {
     margin-left: 5px;
-}
-
-h1 {
-    text-align: center;
-    margin-bottom: 20px;
-    color: #333;
+    margin-bottom: 0;
 }
 </style>
