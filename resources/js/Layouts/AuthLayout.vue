@@ -30,6 +30,11 @@ const handleLogout = () => {
                     <Link :href="route('product.index')" class="link"
                         >Products</Link
                     >
+                    <Link
+                        :href="route('profile.edit')"
+                        class="text-gray-800 dark:text-white focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 link"
+                        >Profile</Link
+                    >
                     <div
                         class="bg-white rounded-sm p-2 ml-4 shadow-lg text-black"
                     >
