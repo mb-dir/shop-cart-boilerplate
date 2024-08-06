@@ -18,6 +18,15 @@ class Order extends Model
 
     public function cart()
     {
-        return $this->hasOne(Cart::class);
+        return $this->belongsTo(Cart::class);
+    }
+
+    public static function boot()
+    {
+        parent::boot();
+
+        static::created(function ($order) {
+            $order->cart->makeInactive();
+        });
     }
 }

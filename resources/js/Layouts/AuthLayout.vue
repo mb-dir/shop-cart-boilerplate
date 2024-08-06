@@ -36,8 +36,8 @@ const handleLogout = () => {
                         <Link
                             :href="route('cart.index')"
                             v-if="$page.props.cart?.items"
-                            >{{ $page.props.cart.totalPrice }}zł({{
-                                $page.props.cart.totalQuantity
+                            >{{ $page.props.cart.total_price }}zł({{
+                                $page.props.cart.total_quantity
                             }})
                         </Link>
                         <span v-else>Cart is empty</span>

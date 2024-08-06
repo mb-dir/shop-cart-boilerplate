@@ -26,12 +26,12 @@ const props = defineProps({
                 <h2 class="text-xl font-semibold mb-2">Cart summary:</h2>
                 <p class="text-gray-700">
                     Final price:
-                    <span class="font-medium">{{ cart.totalPrice }} PLN</span>
+                    <span class="font-medium">{{ cart.total_price }} PLN</span>
                 </p>
                 <p class="text-gray-700">
                     Final quantity:
                     <span class="font-medium"
-                        >{{ cart.totalQuantity }} pcs.</span
+                        >{{ cart.total_quantity }} pcs.</span
                     >
                 </p>
                 <Link :href="route('order.index')">Make an order</Link>

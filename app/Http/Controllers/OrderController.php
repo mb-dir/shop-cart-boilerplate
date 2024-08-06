@@ -12,7 +12,11 @@ class OrderController extends Controller
 {
     public function index()
     {
-        $cart = Cart::firstWhere('user_id', Auth::id())->load('items');
+        $cart = optional(
+            Cart::where('user_id', Auth::id())
+                ->where('is_active', 1)
+                ->first()
+        )->load('items');
         return Inertia::render('Order', compact('cart'));
     }
 
@@ -26,7 +30,12 @@ class OrderController extends Controller
             'payment_type' => 'required',
             'delivery_type' => 'required',
         ]);
-        $cart = Cart::firstWhere('user_id', Auth::id());
+
+        $cart = optional(
+            Cart::where('user_id', Auth::id())
+                ->where('is_active', 1)
+                ->first()
+        )->load('items');
 
 
         $validated['cart_id'] = $cart->id;
