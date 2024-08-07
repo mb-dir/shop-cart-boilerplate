@@ -1,7 +1,7 @@
 <script setup>
-import AuthLayout from "../Layouts/AuthLayout.vue";
+import AuthLayout from "@/Layouts/AuthLayout.vue";
 import InputError from "@/Components/InputError.vue";
-import { useForm } from "@inertiajs/vue3";
+import { useForm, router } from "@inertiajs/vue3";
 
 const props = defineProps({
     cart: { type: Object, default: null },
@@ -16,8 +16,11 @@ const form = useForm({
     delivery_type: 1,
 });
 
-function onSubmit() {
-    form.post(route("order.store"));
+function goToSummary() {
+    router.get(route("order.summary"), {
+        data: form,
+        preserveState: true,
+    });
 }
 </script>
 
@@ -137,8 +140,8 @@ function onSubmit() {
                     </div>
                 </div>
             </div>
-            <button>Finalize</button>
         </form>
+        <button type="button" @click="goToSummary">Go to summary</button>
     </AuthLayout>
 </template>
 

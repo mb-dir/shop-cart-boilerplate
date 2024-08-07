@@ -1,6 +1,6 @@
 <script setup>
-import AuthLayout from "../Layouts/AuthLayout.vue";
-import CartItemTile from "../Components/CartItemTile.vue";
+import AuthLayout from "@/Layouts/AuthLayout.vue";
+import CartItemTile from "@/Components/CartItemTile.vue";
 import { Link } from "@inertiajs/vue3";
 
 const props = defineProps({
@@ -36,7 +36,7 @@ const props = defineProps({
                     </p>
                 </div>
 
-                <Link :href="route('order.index')">Make an order</Link>
+                <Link :href="route('order.create')">Make an order</Link>
             </div>
         </div>
         <div v-else>Cart is empty</div>

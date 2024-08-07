@@ -1,6 +1,6 @@
 <script setup>
-import AuthLayout from "../Layouts/AuthLayout.vue";
-import ProductTile from "../Components/ProductTile.vue";
+import AuthLayout from "@/Layouts/AuthLayout.vue";
+import ProductTile from "@/Components/ProductTile.vue";
 
 const props = defineProps({
     products: { type: Array, required: true },

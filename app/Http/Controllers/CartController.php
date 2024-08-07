@@ -13,7 +13,7 @@ class CartController extends Controller
     public function index()
     {
         $cart = session()->get('cart');
-        return Inertia::render('Cart', compact('cart'));
+        return Inertia::render('Cart/Index', compact('cart'));
     }
 
     public function store()

@@ -8,8 +8,9 @@ use Inertia\Inertia;
 
 class ProductController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         $products = Product::all();
-        return Inertia::render("Product", compact('products'));
+        return Inertia::render("Product/Index", compact('products'));
     }
 }
