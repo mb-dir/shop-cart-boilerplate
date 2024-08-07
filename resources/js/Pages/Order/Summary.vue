@@ -1,18 +1,13 @@
 <script setup>
 import AuthLayout from "@/Layouts/AuthLayout.vue";
-import { useForm } from "@inertiajs/vue3";
+import { router } from "@inertiajs/vue3";
 
 const props = defineProps({
-    cart: { type: Object, default: null },
-    orderData: { type: Object, default: null },
+    order: { type: Object, default: null },
 });
 
-const form = useForm({
-    ...props.orderData,
-});
-
-function placeOrder() {
-    form.post(route("order.store"));
+function onConfirm() {
+    router.put(route("order.confirm", { order: props.order }));
 }
 </script>
 
@@ -22,24 +17,22 @@ function placeOrder() {
             <h1>Order Summary</h1>
             <div class="section">
                 <h2>Delivery Address</h2>
-                <p><strong>City:</strong> {{ orderData.city }}</p>
-                <p><strong>Main Street:</strong> {{ orderData.main_street }}</p>
-                <p>
-                    <strong>House Number:</strong> {{ orderData.house_number }}
-                </p>
-                <p><strong>Phone:</strong> {{ orderData.phone }}</p>
+                <p><strong>City:</strong> {{ order.city }}</p>
+                <p><strong>Main Street:</strong> {{ order.main_street }}</p>
+                <p><strong>House Number:</strong> {{ order.house_number }}</p>
+                <p><strong>Phone:</strong> {{ order.phone }}</p>
             </div>
             <div class="section">
                 <h2>Cart Items</h2>
                 <ul>
-                    <li v-for="item in cart.items" :key="item.id">
+                    <li v-for="item in order.cart.items" :key="item.id">
                         <strong>{{ item.name }}</strong> - Quantity:
                         {{ item.quantity }} - Price: {{ item.price }}
                     </li>
                 </ul>
             </div>
-            <button @click="placeOrder" class="place-order-btn">
-                Place Order
+            <button @click="onConfirm" class="place-order-btn">
+                Confirm and pay
             </button>
         </div>
     </AuthLayout>

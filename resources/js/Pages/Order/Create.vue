@@ -1,7 +1,8 @@
 <script setup>
 import AuthLayout from "@/Layouts/AuthLayout.vue";
 import InputError from "@/Components/InputError.vue";
-import { useForm, router } from "@inertiajs/vue3";
+import { useForm } from "@inertiajs/vue3";
+import PrimaryButton from "@/Components/PrimaryButton.vue";
 
 const props = defineProps({
     cart: { type: Object, default: null },
@@ -16,11 +17,8 @@ const form = useForm({
     delivery_type: 1,
 });
 
-function goToSummary() {
-    router.get(route("order.summary"), {
-        data: form,
-        preserveState: true,
-    });
+function onSubmit() {
+    form.post(route("order.store"));
 }
 </script>
 
@@ -140,8 +138,8 @@ function goToSummary() {
                     </div>
                 </div>
             </div>
+            <PrimaryButton>Place an order</PrimaryButton>
         </form>
-        <button type="button" @click="goToSummary">Go to summary</button>
     </AuthLayout>
 </template>
 

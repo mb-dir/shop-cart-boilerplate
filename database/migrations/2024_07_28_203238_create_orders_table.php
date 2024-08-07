@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('city');
             $table->string('main_street');
             $table->string('house_number');
+            $table->boolean('status')->default(0);
             $table->timestamps();
         });
     }
