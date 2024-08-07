@@ -10,6 +10,21 @@ use Inertia\Inertia;
 
 class OrderController extends Controller
 {
+
+    public function index()
+    {
+        $orders = Order::where('user_id', Auth::id())->get();
+
+        $confirmedOrders = $orders->filter(function ($order) {
+            return $order->status == 1;
+        })->values()->toArray(); // Convert to array and reindex
+
+        $unconfirmedOrders = $orders->filter(function ($order) {
+            return $order->status == 0;
+        })->values()->toArray(); // Convert to array and reindex
+
+        return Inertia::render('Order/Index', compact('confirmedOrders', 'unconfirmedOrders'));
+    }
     public function create()
     {
         $cart = optional(
@@ -58,6 +73,6 @@ class OrderController extends Controller
     {
         $order->update(['status' => 1]);
 
-        return redirect(route('profile.edit'))->with('message', 'Order was canfirmed!');
+        return redirect(route('order.index'))->with('message', 'Order was canfirmed!');
     }
 }

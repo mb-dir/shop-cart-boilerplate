@@ -1,12 +1,9 @@
 <?php
 
-use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CartItemController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
-use App\Http\Controllers\ProfileController;
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -20,10 +17,6 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-
     Route::get('/product', [ProductController::class, 'index'])->name('product.index');
 
     Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
@@ -32,6 +25,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/cart-item/{cartItem}', [CartItemController::class, 'destory'])->name('cart.item.destory');
 
     Route::get('/order/{order}/summary', [OrderController::class, 'summary'])->name('order.summary');
+    Route::get('/orders', [OrderController::class, 'index'])->name('order.index');
     Route::get('/order', [OrderController::class, 'create'])->name('order.create');
     Route::post('/order', [OrderController::class, 'store'])->name('order.store');
     Route::put('/order/{order}', [OrderController::class, 'confirm'])->name('order.confirm');

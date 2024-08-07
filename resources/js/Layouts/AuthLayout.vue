@@ -14,7 +14,7 @@ const handleLogout = () => {
 
         <nav class="navigation">
             <Link :href="route('product.index')">Products</Link>
-            <Link :href="route('profile.edit')">Your order history</Link>
+            <Link :href="route('order.index')">Your order history</Link>
             <div class="cart-link">
                 <Link :href="route('cart.index')" v-if="$page.props.cart?.items"
                     >{{ $page.props.cart.total_price }}zł({{
