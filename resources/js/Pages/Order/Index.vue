@@ -36,13 +36,13 @@ const props = defineProps({
                                     order.id
                                 }}</Link>
                             </td>
-                            <td>{{ order.payment_type }}</td>
-                            <td>{{ order.delivery_type }}</td>
+                            <td>{{ order.payment_type.name }}</td>
+                            <td>{{ order.delivery_type.name }}</td>
                             <td>{{ order.phone }}</td>
                             <td>{{ order.city }}</td>
                             <td>{{ order.main_street }}</td>
                             <td>{{ order.house_number }}</td>
-                            <td>{{ order.status }}</td>
+                            <td>{{ order.status.name }}</td>
                             <td>
                                 {{
                                     new Date(order.created_at).toLocaleString()
@@ -76,13 +76,13 @@ const props = defineProps({
                                     order.id
                                 }}</Link>
                             </td>
-                            <td>{{ order.payment_type }}</td>
-                            <td>{{ order.delivery_type }}</td>
+                            <td>{{ order.payment_type.name }}</td>
+                            <td>{{ order.delivery_type.name }}</td>
                             <td>{{ order.phone }}</td>
                             <td>{{ order.city }}</td>
                             <td>{{ order.main_street }}</td>
                             <td>{{ order.house_number }}</td>
-                            <td>{{ order.status }}</td>
+                            <td>{{ order.status.name }}</td>
                             <td>
                                 {{
                                     new Date(order.created_at).toLocaleString()

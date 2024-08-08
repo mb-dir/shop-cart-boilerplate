@@ -24,7 +24,18 @@ function onConfirm() {
             </div>
             <div class="section">
                 <h2>Orders status</h2>
-                <p>{{ order.status }}</p>
+                <p><strong>Status:</strong> {{ order.status.name }}</p>
+            </div>
+            <div class="section">
+                <h2>Delivery meta</h2>
+                <p>
+                    <strong>Delivery type:</strong>
+                    {{ order.delivery_type.name }}
+                </p>
+                <p>
+                    <strong>Payment type:</strong>
+                    {{ order.payment_type.name }}
+                </p>
             </div>
             <div class="section">
                 <h2>Cart Items</h2>
@@ -37,7 +48,7 @@ function onConfirm() {
             </div>
             <button
                 @click="onConfirm"
-                v-if="order.status === 0"
+                v-if="order.status.id === 1"
                 class="place-order-btn"
             >
                 Confirm and pay

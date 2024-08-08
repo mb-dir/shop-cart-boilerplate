@@ -21,19 +21,19 @@ class Order extends Model
         return $this->belongsTo(Cart::class);
     }
 
-    public function delivery()
+    public function deliveryType()
     {
-        return $this->hasOne(DeliveryType::class);
+        return $this->belongsTo(DeliveryType::class);
     }
 
     public function status()
     {
-        return $this->hasOne(OrderStatus::class);
+        return $this->belongsTo(OrderStatus::class);
     }
 
-    public function payment()
+    public function paymentType()
     {
-        return $this->hasOne(PaymentType::class);
+        return $this->belongsTo(PaymentType::class);
     }
 
     public static function boot()

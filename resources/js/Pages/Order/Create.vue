@@ -13,8 +13,8 @@ const form = useForm({
     main_street: "",
     house_number: "",
     phone: "",
-    payment_type: 1,
-    delivery_type: 1,
+    payment_type_id: 1,
+    delivery_type_id: 1,
 });
 
 function onSubmit() {
@@ -82,7 +82,7 @@ function onSubmit() {
                             type="radio"
                             id="delivery1"
                             value="1"
-                            v-model="form.delivery_type"
+                            v-model="form.delivery_type_id"
                         />
                         <label for="delivery1">Standard Delivery</label>
                     </div>
@@ -91,7 +91,7 @@ function onSubmit() {
                             type="radio"
                             id="delivery2"
                             value="2"
-                            v-model="form.delivery_type"
+                            v-model="form.delivery_type_id"
                         />
                         <label for="delivery2">Express Delivery</label>
                     </div>
@@ -100,7 +100,7 @@ function onSubmit() {
                             type="radio"
                             id="delivery3"
                             value="3"
-                            v-model="form.delivery_type"
+                            v-model="form.delivery_type_id"
                         />
                         <label for="delivery3">Pickup</label>
                     </div>
@@ -114,7 +114,7 @@ function onSubmit() {
                             type="radio"
                             id="payment1"
                             value="1"
-                            v-model="form.payment_type"
+                            v-model="form.payment_type_id"
                         />
                         <label for="payment1">Credit Card</label>
                     </div>
@@ -123,7 +123,7 @@ function onSubmit() {
                             type="radio"
                             id="payment2"
                             value="2"
-                            v-model="form.payment_type"
+                            v-model="form.payment_type_id"
                         />
                         <label for="payment2">PayPal</label>
                     </div>
@@ -132,7 +132,7 @@ function onSubmit() {
                             type="radio"
                             id="payment3"
                             value="3"
-                            v-model="form.payment_type"
+                            v-model="form.payment_type_id"
                         />
                         <label for="payment3">Cash on Delivery</label>
                     </div>

@@ -23,8 +23,19 @@ function onConfirm() {
                 <p><strong>Phone:</strong> {{ order.phone }}</p>
             </div>
             <div class="section">
+                <h2>Delivery meta</h2>
+                <p>
+                    <strong>Delivery type:</strong>
+                    {{ order.delivery_type.name }}
+                </p>
+                <p>
+                    <strong>Payment type:</strong>
+                    {{ order.payment_type.name }}
+                </p>
+            </div>
+            <div class="section">
                 <h2>Orders status</h2>
-                <p>{{ order.status }}</p>
+                <p><strong>Status:</strong> {{ order.status.name }}</p>
             </div>
             <div class="section">
                 <h2>Cart Items</h2>
