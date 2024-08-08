@@ -15,13 +15,13 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('cart_id')->constrained()->onDelete('cascade');
-            $table->unsignedSmallInteger('payment_type');
-            $table->unsignedSmallInteger('delivery_type');
+            $table->foreignId('payment_type_id')->constrained();
+            $table->foreignId('delivery_type_id')->constrained();
+            $table->foreignId('status_id');
             $table->string('phone');
             $table->string('city');
             $table->string('main_street');
             $table->string('house_number');
-            $table->boolean('status')->default(0);
             $table->timestamps();
         });
     }
