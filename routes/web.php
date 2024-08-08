@@ -27,6 +27,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/order/{order}/summary', [OrderController::class, 'summary'])->name('order.summary');
     Route::get('/orders', [OrderController::class, 'index'])->name('order.index');
     Route::get('/order', [OrderController::class, 'create'])->name('order.create');
+    Route::get('/order/{order}', [OrderController::class, 'show'])->name('order.show');
     Route::post('/order', [OrderController::class, 'store'])->name('order.store');
     Route::put('/order/{order}', [OrderController::class, 'confirm'])->name('order.confirm');
 });

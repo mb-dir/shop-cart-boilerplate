@@ -25,6 +25,14 @@ class OrderController extends Controller
 
         return Inertia::render('Order/Index', compact('confirmedOrders', 'unconfirmedOrders'));
     }
+
+    public function show(Order $order)
+    {
+        $order->load('cart.items');
+
+        return Inertia::render('Order/Show', compact('order'));
+    }
+
     public function create()
     {
         $cart = optional(
@@ -73,6 +81,6 @@ class OrderController extends Controller
     {
         $order->update(['status' => 1]);
 
-        return redirect(route('order.index'))->with('message', 'Order was canfirmed!');
+        return redirect(route('order.index'))->with('message', 'Order was confirmed!');
     }
 }
