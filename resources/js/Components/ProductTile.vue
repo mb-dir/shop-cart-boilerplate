@@ -46,6 +46,7 @@ function onAddToCart() {
 <style scoped>
 .product {
     border: 1px solid black;
+    border-radius: 10px;
     padding: 1rem 2rem;
     width: 650px;
     display: flex;
