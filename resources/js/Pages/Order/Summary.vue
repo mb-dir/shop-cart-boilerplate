@@ -23,6 +23,10 @@ function onConfirm() {
                 <p><strong>Phone:</strong> {{ order.phone }}</p>
             </div>
             <div class="section">
+                <h2>Orders status</h2>
+                <p>{{ order.status }}</p>
+            </div>
+            <div class="section">
                 <h2>Cart Items</h2>
                 <ul>
                     <li v-for="item in order.cart.items" :key="item.id">
