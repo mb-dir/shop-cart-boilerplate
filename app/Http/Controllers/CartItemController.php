@@ -5,30 +5,23 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\CartItem;
+use App\Services\CartItemManager;
 
 class CartItemController extends Controller
 {
 
-    protected $cartController;
+    protected $cartItemManager;
 
-    public function __construct(CartController $cartController)
+    public function __construct(CartItemManager $cartItemManager)
     {
-        $this->cartController = $cartController;
+        $this->cartItemManager = $cartItemManager;
     }
 
     public function store(Request $request, Product $product)
     {
         $quantity = $request->input('quantity', 1);
 
-        $cart = session()->get('cart');
-
-        if (!is_null($cart)) {
-            CartItem::create(['cart_id' => $cart->id, 'name' => $product->name, 'price' => $product->price,  'product_id' => $product->id, 'quantity' => $quantity]);
-        } else {
-            $cart = $this->cartController->store();
-
-            CartItem::create(['cart_id' => $cart->id, 'name' => $product->name, 'price' => $product->price, 'product_id' => $product->id, 'quantity' => $quantity]);
-        }
+        $this->cartItemManager->create($product, $quantity);
 
         return redirect()->back()->with('message', "Added to cart!");
     }

@@ -15,9 +15,4 @@ class CartController extends Controller
         $cart = session()->get('cart');
         return Inertia::render('Cart/Index', compact('cart'));
     }
-
-    public function store()
-    {
-        return Cart::create(['user_id' => Auth::id()]);
-    }
 }
