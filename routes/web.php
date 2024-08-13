@@ -18,6 +18,7 @@ Route::get('/dashboard', function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('/product', [ProductController::class, 'index'])->name('product.index');
+    Route::get('/test', [ProductController::class, 'test'])->name('product.test');
 
     Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
     Route::post('/cart-item/{product}', [CartItemController::class, 'store'])->name('cart.item.store');
