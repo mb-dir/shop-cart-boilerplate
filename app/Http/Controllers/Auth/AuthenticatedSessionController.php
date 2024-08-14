@@ -34,16 +34,6 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        $cart = optional(
-            Cart::where('user_id', Auth::id())
-                ->where('is_active', 1)
-                ->first()
-        )->load('items');
-
-        if (!is_null($cart)) {
-            session()->put('cart', $cart);
-        }
-
         return redirect()->intended(route('dashboard', absolute: false));
     }
 
