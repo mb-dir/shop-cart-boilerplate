@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Facades\Cart;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 
@@ -36,7 +37,8 @@ class HandleInertiaRequests extends Middleware
             ],
             'flash' => [
                 'message' => fn() => $request->session()->get('message')
-            ]
+            ],
+            'cart' => Cart::shared(),
         ];
     }
 }

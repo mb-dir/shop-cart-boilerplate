@@ -34,6 +34,11 @@ class CartManager
         return $this->cart;
     }
 
+    public function shared()
+    {
+        return optional($this->cart())->load('items');
+    }
+
     public function recalculate()
     {
         $cart = $this->cart->load('items');
