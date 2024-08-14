@@ -26,4 +26,18 @@ class CartItemManager
 
         $this->cartManager->recalculate();
     }
+
+    public function update(CartItem $cartItem, mixed $quantity)
+    {
+
+        if (is_null($quantity)) {
+            $cartItem->quantity += 1;
+        } else {
+            $cartItem->quantity = $quantity;
+        }
+
+        $cartItem->save();
+
+        $this->cartManager->recalculate();
+    }
 }

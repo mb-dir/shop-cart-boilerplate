@@ -30,13 +30,7 @@ class CartItemController extends Controller
     {
         $quantity = $request->input('quantity', null);
 
-        if ($quantity) {
-            $cartItem->quantity = $quantity;
-        } else {
-            $cartItem->quantity += 1;
-        }
-
-        $cartItem->save();
+        $this->cartItemManager->update($cartItem, $quantity);
 
         return redirect()->back()->with('message', "Item was updated");
     }
