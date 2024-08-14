@@ -40,4 +40,15 @@ class CartItemManager
 
         $this->cartManager->recalculate();
     }
+
+    public function destroy(CartItem $cartItem)
+    {
+        $cartItem->delete();
+
+        if ($this->cartManager->isEmpty()) {
+            $this->cartManager->destroy();
+        } else {
+            $this->cartManager->recalculate();
+        }
+    }
 }

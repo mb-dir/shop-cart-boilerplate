@@ -34,9 +34,21 @@ class CartManager
         return $this->cart;
     }
 
+    public function destroy()
+    {
+        if (isset($this->cart)) {
+            $this->cart->delete();
+        }
+    }
+
     public function shared()
     {
         return optional($this->cart())->load('items');
+    }
+
+    public function isEmpty(): bool
+    {
+        return $this->shared()->items->isEmpty();
     }
 
     public function recalculate()

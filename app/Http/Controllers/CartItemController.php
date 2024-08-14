@@ -37,7 +37,8 @@ class CartItemController extends Controller
 
     public function destory(CartItem $cartItem)
     {
-        $cartItem->delete();
+        $this->cartItemManager->destroy($cartItem);
+
         return redirect()->back()->with('message', "Item was deleted!");
     }
 }
