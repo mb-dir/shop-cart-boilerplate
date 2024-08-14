@@ -35,13 +35,4 @@ class Order extends Model
     {
         return $this->belongsTo(PaymentType::class);
     }
-
-    public static function boot()
-    {
-        parent::boot();
-
-        static::created(function ($order) {
-            $order->cart->makeInactive();
-        });
-    }
 }

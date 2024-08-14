@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Facades\Cart as FacadesCart;
 use App\Models\Cart;
 use App\Models\Order;
 use Illuminate\Http\Request;
@@ -35,12 +36,7 @@ class OrderController extends Controller
 
     public function create()
     {
-        $cart = optional(
-            Cart::where('user_id', Auth::id())
-                ->where('is_active', 1)
-                ->first()
-        )->load('items');
-        return Inertia::render('Order/Create', compact('cart'));
+        return Inertia::render('Order/Create');
     }
 
     public function store(Request $request)
@@ -54,20 +50,13 @@ class OrderController extends Controller
             'delivery_type_id' => 'required',
         ]);
 
-        $cart = optional(
-            Cart::where('user_id', Auth::id())
-                ->where('is_active', 1)
-                ->first()
-        )->load('items');
-
-
-        $validated['cart_id'] = $cart->id;
+        $validated['cart_id'] = FacadesCart::id();
         $validated['user_id'] = Auth::id();
-        // Kinda sus
         $validated['status_id'] = 1;
 
-
         $order = Order::create($validated);
+
+        FacadesCart::makeInactive();
 
         return redirect(route('order.summary', compact('order')))->with('message', 'Order was created!');
     }

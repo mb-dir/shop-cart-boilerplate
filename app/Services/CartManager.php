@@ -34,6 +34,20 @@ class CartManager
         return $this->cart;
     }
 
+    public function id()
+    {
+        if (isset($this->cart)) {
+            return $this->cart->id;
+        }
+    }
+
+    public function makeInactive()
+    {
+        if (isset($this->cart)) {
+            $this->cart->update(['is_active' => 0]);
+        }
+    }
+
     public function destroy()
     {
         if (isset($this->cart)) {
