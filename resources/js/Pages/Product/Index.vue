@@ -17,8 +17,8 @@ const props = defineProps({
 
 <style scoped>
 .products {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
     gap: 2rem;
     padding: 2rem;
 }

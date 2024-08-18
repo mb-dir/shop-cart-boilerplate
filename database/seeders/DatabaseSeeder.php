@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             Product::create([
                 'name' => 'Product ' . $i,
                 'price' => rand(10, 1000),
+                'photo' => null,
             ]);
         }
 
