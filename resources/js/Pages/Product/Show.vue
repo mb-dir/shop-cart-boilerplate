@@ -1,7 +1,8 @@
 <script setup>
 import AuthLayout from "@/Layouts/AuthLayout.vue";
-import { router, usePage } from "@inertiajs/vue3";
-import { computed } from "vue";
+import Modal from "@/Components/Modal.vue";
+import { router, usePage, useForm } from "@inertiajs/vue3";
+import { computed, ref } from "vue";
 
 const props = defineProps({
     product: { type: Object, required: true },
@@ -10,10 +11,18 @@ const props = defineProps({
 const page = usePage();
 const cartItems = computed(() => page.props.cart.items);
 
+const form = useForm({
+    name: props.product.name,
+    price: props.product.price,
+    photo: null,
+});
+
 // Find the cart item related to the current product
 const retrivedItem = computed(() =>
     cartItems.value?.find((item) => item.product_id === props.product.id)
 );
+
+const show = ref(false);
 
 function onAddToCart() {
     if (retrivedItem.value) {
@@ -36,10 +45,25 @@ function onAddToCart() {
 </script>
 
 <template>
+    <Modal :show="show" @close="show = false">
+        <form action="">
+            <input type="text" placeholder="Name" v-model="form.name" />
+            <input
+                type="number"
+                min="0"
+                step="0.01"
+                placeholder="Price"
+                v-model="form.price"
+            />
+            <!-- <input type="file" placeholder="Photo" v-model="form.photo" /> -->
+            <button>Save</button>
+        </form>
+    </Modal>
     <AuthLayout>
         <div class="product-container">
             <img :src="product.photo" alt="" class="product-image" />
             <div class="product-details">
+                <button class="edit-btn" @click="show = true">Edit</button>
                 <h2>{{ product.name }}</h2>
                 <div class="price">{{ product.price }}</div>
                 <div class="actions">
@@ -62,6 +86,7 @@ function onAddToCart() {
     max-width: 900px;
     margin: 40px auto;
     align-items: center;
+    position: relative;
 }
 
 .product-image {
@@ -75,6 +100,12 @@ function onAddToCart() {
     flex-direction: column;
     justify-content: center;
     align-items: end;
+}
+
+.edit-btn {
+    position: absolute;
+    top: 0;
+    right: 0;
 }
 
 .product-details h2 {
