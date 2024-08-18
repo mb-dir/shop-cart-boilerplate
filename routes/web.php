@@ -17,8 +17,8 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
+    Route::get('/product/{product}', [ProductController::class, 'show'])->name('product.show');
     Route::get('/product', [ProductController::class, 'index'])->name('product.index');
-    Route::get('/test', [ProductController::class, 'test'])->name('product.test');
 
     Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
     Route::post('/cart-item/{product}', [CartItemController::class, 'store'])->name('cart.item.store');

@@ -1,5 +1,5 @@
 <script setup>
-import { usePage, router } from "@inertiajs/vue3";
+import { usePage, router, Link } from "@inertiajs/vue3";
 import { computed } from "vue";
 
 const props = defineProps({
@@ -38,7 +38,11 @@ function onAddToCart() {
     <div class="product">
         <img class="product-image" :src="item.photo" alt="" />
         <div class="product-details">
-            <h2 class="product-name">{{ item.name }}</h2>
+            <h2 class="product-name">
+                <Link :href="route('product.show', { product: item })">
+                    {{ item.name }}
+                </Link>
+            </h2>
             <p class="product-price">${{ item.price }}</p>
             <button class="add-to-cart-button" @click="onAddToCart">
                 Add to cart

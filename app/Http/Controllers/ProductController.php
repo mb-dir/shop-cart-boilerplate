@@ -16,10 +16,8 @@ class ProductController extends Controller
         return Inertia::render("Product/Index", compact('products'));
     }
 
-    public function test(CartManager $cartManager)
+    public function show(Product $product)
     {
-        $cart = $cartManager->create();
-
-        dd($cart);
+        return Inertia::render("Product/Show", compact('product'));
     }
 }
