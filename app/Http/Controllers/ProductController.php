@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Services\CartManager;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
 class ProductController extends Controller
@@ -29,7 +30,15 @@ class ProductController extends Controller
             'photo' => ['nullable', 'image', 'mimes:jpeg,png', 'max:2048'],
         ]);
 
-        // You can now use the $validated data to update the product
+        if ($request->hasFile('photo')) {
+            if ($product->photo) {
+                Storage::delete($product->photo);
+            }
+
+            $path = $request->file('photo')->store('photos', 'public');
+            $validated['photo'] = $path;
+        }
+
         $product->update($validated);
 
         return redirect()->back()->with('message', 'Product updated successfully.');

@@ -22,4 +22,14 @@ const props = defineProps({
     gap: 2rem;
     padding: 2rem;
 }
+@media (max-width: 992px) {
+    .products {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+@media (max-width: 768px) {
+    .products {
+        grid-template-columns: 1fr;
+    }
+}
 </style>

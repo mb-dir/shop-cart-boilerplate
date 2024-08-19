@@ -44,11 +44,11 @@ function onAddToCart() {
 }
 
 function onPhotoChange({ target }) {
-    console.log(target.files);
+    form.photo = target.files[0];
 }
 
 function onSubmit() {
-    form.put(route("product.update", { product: props.product }), {
+    form.post(route("product.update", { product: props.product }), {
         onSuccess: () => {
             show.value = false;
         },
