@@ -67,15 +67,29 @@ function onSubmit() {
                 placeholder="Price"
                 v-model="form.price"
             />
+
+            <!-- Display the current product photo if it exists -->
+            <div v-if="product.photo" class="photo-preview">
+                <label>Current Photo:</label>
+                <img
+                    :src="product.photo"
+                    alt="Current Product Photo"
+                    class="current-photo"
+                />
+            </div>
+
+            <!-- File input for selecting a new photo -->
             <input
                 type="file"
                 placeholder="Photo"
                 accept="image/jpeg, image/png"
                 @change="onPhotoChange"
             />
+
             <button>Save</button>
         </form>
     </Modal>
+
     <AuthLayout>
         <div class="product-container">
             <img :src="product.photo" alt="" class="product-image" />
@@ -191,5 +205,18 @@ form button {
 
 form button:hover {
     background-color: #218838;
+}
+
+.photo-preview {
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.current-photo {
+    max-width: 100px;
+    max-height: 100px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-top: 5px;
 }
 </style>

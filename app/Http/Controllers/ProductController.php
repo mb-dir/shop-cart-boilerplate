@@ -37,6 +37,8 @@ class ProductController extends Controller
 
             $path = $request->file('photo')->store('photos', 'public');
             $validated['photo'] = $path;
+        } else {
+            unset($validated['photo']);
         }
 
         $product->update($validated);
