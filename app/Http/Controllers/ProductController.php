@@ -31,10 +31,21 @@ class ProductController extends Controller
         ]);
 
         if ($request->hasFile('photo')) {
-            if ($product->photo) {
-                Storage::delete($product->photo);
+            // Retrieve the full URL or path
+            $photoUrl = $product->getOriginal('photo');
+
+            // Check if the photo URL is not empty and remove the base URL if needed
+            if ($photoUrl) {
+                // Extra logic because of the accessor in Product model
+                $relativePath = str_replace(asset('storage') . '/', '', $photoUrl);
+
+                // Now, delete the file using the relative path
+                if (Storage::disk('public')->exists($relativePath)) {
+                    Storage::disk('public')->delete($relativePath);
+                }
             }
 
+            // Store the new photo and get its relative path
             $path = $request->file('photo')->store('photos', 'public');
             $validated['photo'] = $path;
         } else {
