@@ -42,11 +42,23 @@ function onAddToCart() {
         );
     }
 }
+
+function onPhotoChange({ target }) {
+    console.log(target.files);
+}
+
+function onSubmit() {
+    form.put(route("product.update", { product: props.product }), {
+        onSuccess: () => {
+            show.value = false;
+        },
+    });
+}
 </script>
 
 <template>
     <Modal :show="show" @close="show = false">
-        <form action="">
+        <form @submit.prevent="onSubmit">
             <input type="text" placeholder="Name" v-model="form.name" />
             <input
                 type="number"
@@ -55,7 +67,12 @@ function onAddToCart() {
                 placeholder="Price"
                 v-model="form.price"
             />
-            <!-- <input type="file" placeholder="Photo" v-model="form.photo" /> -->
+            <input
+                type="file"
+                placeholder="Photo"
+                accept="image/jpeg, image/png"
+                @change="onPhotoChange"
+            />
             <button>Save</button>
         </form>
     </Modal>
@@ -68,7 +85,6 @@ function onAddToCart() {
                 <div class="price">{{ product.price }}</div>
                 <div class="actions">
                     <button @click="onAddToCart">Add to Cart</button>
-                    <!-- Additional actions like Buy Now can go here -->
                 </div>
             </div>
         </div>
@@ -139,5 +155,41 @@ function onAddToCart() {
 
 .product-details button:hover {
     background-color: #0056b3;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Styling the input fields inside the form */
+form input[type="text"],
+form input[type="number"],
+form input[type="file"] {
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Styling the button inside the form */
+form button {
+    padding: 10px;
+    font-size: 1rem;
+    color: #fff;
+    background-color: #28a745;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+form button:hover {
+    background-color: #218838;
 }
 </style>
