@@ -4,6 +4,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\CartItemController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
+use App\Http\Middleware\CheckRole;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -18,7 +19,7 @@ Route::get('/dashboard', function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('/product/{product}', [ProductController::class, 'show'])->name('product.show');
-    Route::post('/product/{product}/edit', [ProductController::class, 'update'])->name('product.update');
+    Route::post('/product/{product}/edit', [ProductController::class, 'update'])->name('product.update')->middleware(CheckRole::class);
     Route::get('/product', [ProductController::class, 'index'])->name('product.index');
 
     Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
