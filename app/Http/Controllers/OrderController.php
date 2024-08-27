@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Facades\Cart as FacadesCart;
+use App\Mail\OrderEmail;
 use App\Models\Cart;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Inertia\Inertia;
 
 class OrderController extends Controller
@@ -72,6 +74,8 @@ class OrderController extends Controller
     {
         // Kinda sus too
         $order->update(['status_id' => 2]);
+
+        Mail::to('bysiewiczmichal@onet.pl')->send(new OrderEmail());
 
         return redirect(route('order.index'))->with('message', 'Order was confirmed!');
     }
