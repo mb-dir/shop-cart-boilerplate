@@ -7,7 +7,7 @@ const props = defineProps({
 });
 
 const page = usePage();
-const cartItems = computed(() => page.props.cart.items);
+const cartItems = computed(() => page.props.cart?.items);
 
 // Find the cart item related to the current product
 const retrivedItem = computed(() =>
