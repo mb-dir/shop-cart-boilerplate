@@ -74,8 +74,9 @@ class OrderController extends Controller
     {
         // Kinda sus too
         $order->update(['status_id' => 2]);
+        $userEmail = Auth::user()->email;
 
-        Mail::to('bysiewiczmichal@onet.pl')->send(new OrderEmail());
+        Mail::to($userEmail)->send(new OrderEmail());
 
         return redirect(route('order.index'))->with('message', 'Order was confirmed!');
     }
