@@ -9,7 +9,7 @@ const props = defineProps({
 });
 
 const page = usePage();
-const cartItems = computed(() => page.props.cart.items);
+const cartItems = computed(() => page.props.cart?.items);
 
 const form = useForm({
     name: props.product.name,
