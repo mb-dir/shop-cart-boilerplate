@@ -1,10 +1,12 @@
 <?php
 
+use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CartItemController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Middleware\CheckRole;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -33,6 +35,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/order/{order}', [OrderController::class, 'show'])->name('order.show');
     Route::post('/order', [OrderController::class, 'store'])->name('order.store');
     Route::put('/order/{order}', [OrderController::class, 'confirm'])->name('order.confirm');
+
+    Route::get('/user/{user}/promote', [RegisteredUserController::class, 'grantAdmin'])->name('user.grant');
 });
 
 require __DIR__ . '/auth.php';

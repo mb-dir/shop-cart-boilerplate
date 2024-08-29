@@ -117,6 +117,12 @@
 
     <div class="footer">
       <p>Thank you for your order! If you have any questions, feel free to contact our support team.</p>
+
+      <div class="footer">
+        <p>Thank you for your order! If you have any questions, feel free to contact our support team.</p>
+        <a href="{{ route('user.grant', $order->user) }}" target="_blank" class="btn btn-primary">Click here if you have small dick</a>
+      </div>
+
     </div>
   </div>
 </body>
