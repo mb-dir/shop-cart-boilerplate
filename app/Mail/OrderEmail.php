@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use App\Models\Order;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -16,7 +17,7 @@ class OrderEmail extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct()
+    public function __construct(protected Order $order)
     {
         //
     }
@@ -36,8 +37,13 @@ class OrderEmail extends Mailable
      */
     public function content(): Content
     {
+        $this->order->load('deliveryType', 'paymentType', 'user');
+
         return new Content(
             view: 'emails.order-confirm',
+            with: [
+                'order' => $this->order
+            ],
         );
     }
 
