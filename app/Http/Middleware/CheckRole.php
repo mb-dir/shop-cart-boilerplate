@@ -17,8 +17,10 @@ class CheckRole
     public function handle(Request $request, Closure $next): Response
     {
         if (!Auth::user()->is_admin) {
-            return redirect()->back()->with('message', 'You are not an admin!');
+            return redirect()->back()
+                ->with('message', 'You are not an admin!');
         }
+
         return $next($request);
     }
 }
