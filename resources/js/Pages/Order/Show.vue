@@ -43,6 +43,7 @@ function onConfirm() {
                     <li v-for="item in order.cart.items" :key="item.id">
                         <strong>{{ item.name }}</strong> - Quantity:
                         {{ item.quantity }} - Price: {{ item.price }}
+                        {{ order.currency.code }}
                     </li>
                 </ul>
             </div>

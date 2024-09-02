@@ -32,7 +32,7 @@ class OrderController extends Controller
 
     public function show(Order $order)
     {
-        $order->load('cart.items', 'status', 'paymentType', 'deliveryType');
+        $order->load('cart.items', 'status', 'paymentType', 'deliveryType', 'currency');
 
         return Inertia::render('Order/Show', compact('order'));
     }
@@ -55,6 +55,7 @@ class OrderController extends Controller
 
         $validated['cart_id'] = FacadesCart::id();
         $validated['user_id'] = Auth::id();
+        $validated['currency_id'] = Currency::firstWhere('is_active', 1)->id;
         $validated['status_id'] = 1;
 
         $order = Order::create($validated);
@@ -66,7 +67,7 @@ class OrderController extends Controller
 
     public function summary(Order $order)
     {
-        $order->load('cart.items', 'status', 'deliveryType', 'paymentType');
+        $order->load('cart.items', 'status', 'deliveryType', 'paymentType', 'currency');
 
         return Inertia::render('Order/Summary', compact('order'));
     }

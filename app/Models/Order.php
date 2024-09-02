@@ -9,7 +9,7 @@ class Order extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id', 'cart_id', 'payment_type_id', 'delivery_type_id', 'phone', 'city', 'main_street', 'house_number', 'status_id'];
+    protected $fillable = ['user_id', 'cart_id', 'payment_type_id', 'delivery_type_id', 'phone', 'city', 'main_street', 'house_number', 'status_id', 'currency_id'];
 
     public function user()
     {
@@ -24,6 +24,11 @@ class Order extends Model
     public function deliveryType()
     {
         return $this->belongsTo(DeliveryType::class);
+    }
+
+    public function currency()
+    {
+        return $this->belongsTo(Currency::class);
     }
 
     public function status()

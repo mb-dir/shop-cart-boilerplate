@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('cart_id')->constrained()->onDelete('cascade');
             $table->foreignId('payment_type_id')->constrained();
             $table->foreignId('delivery_type_id')->constrained();
+            $table->foreignId('currency_id')->constrained();
             $table->foreignId('status_id');
             $table->string('phone');
             $table->string('city');
