@@ -9,12 +9,14 @@ const handleLogout = () => {
 
 const page = usePage();
 
+console.log(page.props);
+
 const form = useForm({
     currency: page.props.activeCurrency,
 });
 
 function onChange() {
-    console.log(form.currency);
+    form.put(route("currency.update"));
 }
 </script>
 

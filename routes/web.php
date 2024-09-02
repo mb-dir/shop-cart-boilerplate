@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CartItemController;
+use App\Http\Controllers\CurrencyController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Middleware\CheckRole;
@@ -35,6 +36,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/order/{order}', [OrderController::class, 'show'])->name('order.show');
     Route::post('/order', [OrderController::class, 'store'])->name('order.store');
     Route::put('/order/{order}', [OrderController::class, 'confirm'])->name('order.confirm');
+
+    Route::put('/currency', [CurrencyController::class, 'update'])->name('currency.update');
 
     Route::get('/user/{user}/promote', [RegisteredUserController::class, 'grantAdmin'])->name('user.grant');
 });
