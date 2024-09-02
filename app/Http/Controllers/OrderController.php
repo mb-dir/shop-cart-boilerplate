@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Facades\Cart as FacadesCart;
 use App\Mail\OrderEmail;
 use App\Models\Cart;
+use App\Models\Currency;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;

@@ -17,7 +17,8 @@ const handleLogout = () => {
             <Link :href="route('order.index')">Your order history</Link>
             <div class="cart-link">
                 <Link :href="route('cart.index')" v-if="$page.props.cart?.items"
-                    >{{ $page.props.cart.total_price }}zł({{
+                    >{{ $page.props.cart.total_price }}
+                    {{ $page.props.activeCurrency.code }} ({{
                         $page.props.cart.total_quantity
                     }})
                 </Link>

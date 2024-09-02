@@ -20,7 +20,9 @@ function onChange() {
     >
         <div class="flex-1">
             <h2 class="text-lg font-semibold">{{ item.name }}</h2>
-            <p class="text-gray-600">{{ item.price }} | PLN</p>
+            <p class="text-gray-600">
+                {{ item.price }} | {{ $page.props.activeCurrency.code }}
+            </p>
         </div>
         <div class="flex items-center space-x-2">
             <input

@@ -43,7 +43,9 @@ function onAddToCart() {
                     {{ item.name }}
                 </Link>
             </h2>
-            <p class="product-price">${{ item.price }}</p>
+            <p class="product-price">
+                {{ item.price }} {{ $page.props.activeCurrency.code }}
+            </p>
             <button class="add-to-cart-button" @click="onAddToCart">
                 Add to cart
             </button>

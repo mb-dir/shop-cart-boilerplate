@@ -28,7 +28,10 @@ const props = defineProps({
                     <h2>Cart summary:</h2>
                     <p>
                         Final price:
-                        <span>{{ cart.total_price }} PLN</span>
+                        <span
+                            >{{ cart.total_price }}
+                            {{ $page.props.activeCurrency.code }}</span
+                        >
                     </p>
                     <p>
                         Final quantity:

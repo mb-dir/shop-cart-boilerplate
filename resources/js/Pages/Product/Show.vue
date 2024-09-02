@@ -96,7 +96,9 @@ function onSubmit() {
             <div class="product-details">
                 <button class="edit-btn" @click="show = true">Edit</button>
                 <h2>{{ product.name }}</h2>
-                <div class="price">{{ product.price }}</div>
+                <div class="price">
+                    {{ product.price }} {{ page.props.activeCurrency.code }}
+                </div>
                 <div class="actions">
                     <button @click="onAddToCart">Add to Cart</button>
                 </div>
