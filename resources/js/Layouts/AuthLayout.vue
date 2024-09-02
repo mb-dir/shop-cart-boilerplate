@@ -1,10 +1,21 @@
 <script setup>
 import { router, Link } from "@inertiajs/vue3";
 import Toast from "../Components/Toast.vue";
+import { usePage, useForm } from "@inertiajs/vue3";
 
 const handleLogout = () => {
     router.post(route("logout"));
 };
+
+const page = usePage();
+
+const form = useForm({
+    currency: page.props.activeCurrency,
+});
+
+function onChange() {
+    console.log(form.currency);
+}
 </script>
 
 <template>
@@ -13,6 +24,14 @@ const handleLogout = () => {
         <Link :href="route('dashboard')">Cart boilerplate</Link>
 
         <nav class="navigation">
+            <select v-model="form.currency" @change="onChange">
+                <option
+                    v-for="currency in $page.props.currencies"
+                    :value="currency"
+                >
+                    {{ currency.code }}
+                </option>
+            </select>
             <Link :href="route('product.index')">Products</Link>
             <Link :href="route('order.index')">Your order history</Link>
             <div class="cart-link">
@@ -71,5 +90,8 @@ const handleLogout = () => {
     align-items: center;
     margin: 0 auto;
     padding: 1rem;
+}
+select {
+    color: black;
 }
 </style>
