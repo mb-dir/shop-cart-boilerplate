@@ -9,10 +9,8 @@ const handleLogout = () => {
 
 const page = usePage();
 
-console.log(page.props);
-
 const form = useForm({
-    currency: page.props.activeCurrency,
+    currency: page.props.activeCurrency?.id,
 });
 
 function onChange() {
@@ -29,7 +27,7 @@ function onChange() {
             <select v-model="form.currency" @change="onChange">
                 <option
                     v-for="currency in $page.props.currencies"
-                    :value="currency"
+                    :value="currency.id"
                 >
                     {{ currency.code }}
                 </option>

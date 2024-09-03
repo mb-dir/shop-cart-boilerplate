@@ -25,8 +25,9 @@ class CurrenciesService
         $this->activeCurrency = $currency;
     }
 
-    public function getActiveCurrency(): Currency
+    public function getActiveCurrency(): Currency | null
     {
+        // dd($this->activeCurrency);
         return $this->activeCurrency;
     }
 
