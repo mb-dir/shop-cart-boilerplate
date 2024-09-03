@@ -3,19 +3,23 @@
 namespace App\Services;
 
 use App\Models\Currency;
+use App\Models\Product;
 use Illuminate\Support\Facades\Http;
 
 class CurrenciesService
 {
     private $currencies;
     private $activeCurrency;
+    private $defaultCurrency;
+    private $prevActiveCurrency;
     private $rates;
 
     public function __construct()
     {
-        // Initialize the properties inside the constructor
         $this->currencies = Currency::all();
         $this->activeCurrency = $this->currencies->firstWhere('is_active', 1);
+        $this->prevActiveCurrency = $this->prevActiveCurrency;
+        $this->defaultCurrency = $this->currencies->firstWhere('is_default', 1);
         $this->rates = [
             'PLN' => 1.0000,
             'EUR' => $this->fetchRate('eur'),
@@ -30,11 +34,28 @@ class CurrenciesService
 
     public function setActiveCurrency(Currency $currency): void
     {
-        Currency::query()->update(['is_active' => 0]);
+        $this->prevActiveCurrency = $this->activeCurrency;
+        $this->activeCurrency = $currency;
 
+        Currency::query()->update(['is_active' => 0]);
         $currency->update(['is_active' => 1]);
 
-        $this->activeCurrency = $currency;
+        $this->exchangePrices();
+    }
+
+    private function exchangePrices(): void
+    {
+        $prevRate = $this->rates[$this->prevActiveCurrency->code];
+        $activeRate = $this->rates[$this->activeCurrency->code];
+
+        $products = Product::all();
+
+        foreach ($products as $product) {
+            $priceInPLN = $product->price * $prevRate;   // Convert to PLN using previous rate
+            $convertedPrice = $priceInPLN / $activeRate; // Convert from PLN to active currency
+
+            $product->update(['price' => $convertedPrice]);
+        }
     }
 
     public function getActiveCurrency(): Currency | null
