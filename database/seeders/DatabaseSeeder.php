@@ -42,7 +42,7 @@ class DatabaseSeeder extends Seeder
         }
 
         Currency::create(['name' => 'Polski złoty', 'code' => "PLN", 'is_active' => true, 'is_default' => true]);
-        Currency::create(['name' => 'Czeska korona', 'code' => "CZK", 'is_active' => false, 'is_default' => false]);
-        Currency::create(['name' => 'Marka Niemiecka', 'code' => "DEM", 'is_active' => false, 'is_default' => false]);
+        Currency::create(['name' => 'Euro', 'code' => "EUR", 'is_active' => false, 'is_default' => false]);
+        Currency::create(['name' => 'Dolar Amerykański', 'code' => "USD", 'is_active' => false, 'is_default' => false]);
     }
 }
