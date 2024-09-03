@@ -10,7 +10,6 @@ class CurrenciesService
 {
     private $currencies;
     private $activeCurrency;
-    private $defaultCurrency;
     private $prevActiveCurrency;
     private $rates;
 
@@ -19,7 +18,6 @@ class CurrenciesService
         $this->currencies = Currency::all();
         $this->activeCurrency = $this->currencies->firstWhere('is_active', 1);
         $this->prevActiveCurrency = $this->prevActiveCurrency;
-        $this->defaultCurrency = $this->currencies->firstWhere('is_default', 1);
         $this->rates = [
             'PLN' => 1.0000,
             'EUR' => $this->fetchRate('eur'),
