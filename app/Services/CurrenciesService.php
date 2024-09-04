@@ -27,7 +27,7 @@ class CurrenciesService
 
     private function fetchRate(string $code)
     {
-        return Http::nbp()->get("exchangerates/rates/a/{$code}/today/")->json()['rates'][0]['mid'];
+        return Http::nbp()->get("exchangerates/rates/a/{$code}")->json()['rates'][0]['mid'];
     }
 
     public function setActiveCurrency(Currency $currency): void
