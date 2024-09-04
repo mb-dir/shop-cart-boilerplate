@@ -45,8 +45,6 @@ class RolesTest extends TestCase
 
         $response = $this->actingAs($user)->post(route('product.update', $product), ['name' => 'editName', 'price' => 1, 'photo' => null]);
 
-        // dd($response);
-
         $response->assertRedirect();
         $response->assertSessionHas('message', 'Product updated successfully.');
         $this->assertEquals('editName', $product->fresh()->name);

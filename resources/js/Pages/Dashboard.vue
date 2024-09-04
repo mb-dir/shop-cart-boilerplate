@@ -3,5 +3,8 @@ import AuthLayout from "../Layouts/AuthLayout.vue";
 </script>
 
 <template>
-    <AuthLayout>Dashboard</AuthLayout>
+    <AuthLayout>
+        Great dashboard content with fancy sliders, animations, hover efects and
+        more great frontend and UX staff
+    </AuthLayout>
 </template>
