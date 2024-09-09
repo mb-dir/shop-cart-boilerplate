@@ -49,4 +49,20 @@ class RolesTest extends TestCase
         $response->assertSessionHas('message', 'Product updated successfully.');
         $this->assertEquals('editName', $product->fresh()->name);
     }
+
+    public function test_grant_to_admin(): void
+    {
+        $user = User::factory()->create();
+
+        $this->assertEquals(0, $user->is_admin);
+
+        $response = $this->actingAs($user)->get(route('user.grant', $user));
+
+        $response->assertRedirect(route('dashboard'));
+        $response->assertSessionHas('message', 'You have unlocked an easter egg, now you are an admin!');
+
+        $user->refresh();
+
+        $this->assertEquals(1, $user->is_admin);
+    }
 }
