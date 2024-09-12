@@ -2,26 +2,15 @@
 
 namespace App\Services;
 
+
 use App\Models\Cart;
 use Illuminate\Support\Facades\Auth;
+
 
 class CartManager
 {
     private ?Cart $cart;
 
-    public function create()
-    {
-
-        $this->cart = $this->cart();
-
-        if (isset($this->cart)) {
-            return $this->cart;
-        }
-
-        $this->cart = Cart::create(['user_id' => Auth::id()]);
-
-        return $this->cart;
-    }
 
     public function cart()
     {
@@ -34,12 +23,48 @@ class CartManager
         return $this->cart;
     }
 
+
+    public function create()
+    {
+
+        $this->cart = $this->cart();
+
+        if (isset($this->cart)) {
+            return $this->cart;
+        }
+
+        if (Auth::id()) {
+            $this->cart = Cart::create(['user_id' => Auth::id()]);
+
+            return $this->cart;
+        }
+
+        return null;
+    }
+
+
+    public function destroy()
+    {
+        if (isset($this->cart)) {
+            $this->cart->delete();
+            $this->cart = null;
+        }
+    }
+
+
     public function id()
     {
         if (isset($this->cart)) {
             return $this->cart->id;
         }
     }
+
+
+    public function isEmpty(): bool
+    {
+        return $this->shared()->items->isEmpty();
+    }
+
 
     public function makeInactive()
     {
@@ -48,22 +73,6 @@ class CartManager
         }
     }
 
-    public function destroy()
-    {
-        if (isset($this->cart)) {
-            $this->cart->delete();
-        }
-    }
-
-    public function shared()
-    {
-        return optional($this->cart())->load('items');
-    }
-
-    public function isEmpty(): bool
-    {
-        return $this->shared()->items->isEmpty();
-    }
 
     public function recalculate()
     {
@@ -78,5 +87,11 @@ class CartManager
             'total_quantity' => $total_quantity,
             'total_price' => $total_price,
         ]);
+    }
+
+
+    public function shared()
+    {
+        return optional($this->cart())->load('items');
     }
 }
