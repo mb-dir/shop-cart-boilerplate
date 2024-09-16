@@ -6,6 +6,7 @@ use App\Http\Controllers\CartItemController;
 use App\Http\Controllers\CurrencyController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
+use App\Http\Middleware\AuthUser;
 use App\Http\Middleware\CheckRole;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -24,7 +25,7 @@ Route::get('/product', [ProductController::class, 'index'])->name('product.index
 Route::get('/product/{product}', [ProductController::class, 'show'])->name('product.show');
 
 
-Route::middleware('auth')->group(function () {
+Route::middleware(AuthUser::class)->group(function () {
     Route::post('/product/{product}/edit', [ProductController::class, 'update'])->name('product.update')->middleware(CheckRole::class);
 
     Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
