@@ -2,18 +2,37 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Facades\Cart as FacadesCart;
+use App\Http\Requests\Order\CreateOrderRequest;
 use App\Mail\OrderEmail;
-use App\Models\Cart;
 use App\Models\Currency;
 use App\Models\Order;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Inertia\Inertia;
 
+
 class OrderController extends Controller
 {
+
+    public function confirm(Order $order)
+    {
+        // Kinda sus too
+        $order->update(['status_id' => 2]);
+        $userEmail = Auth::user()->email;
+
+        Mail::to($userEmail)->send(new OrderEmail($order));
+
+        return redirect(route('order.index'))->with('message', 'Order was confirmed!');
+    }
+
+
+    public function create()
+    {
+        return Inertia::render('Order/Create');
+    }
+
 
     public function index()
     {
@@ -30,6 +49,7 @@ class OrderController extends Controller
         return Inertia::render('Order/Index', compact('confirmedOrders', 'unconfirmedOrders'));
     }
 
+
     public function show(Order $order)
     {
         $order->load('cart.items', 'status', 'paymentType', 'deliveryType', 'currency');
@@ -37,21 +57,10 @@ class OrderController extends Controller
         return Inertia::render('Order/Show', compact('order'));
     }
 
-    public function create()
-    {
-        return Inertia::render('Order/Create');
-    }
 
-    public function store(Request $request)
+    public function store(CreateOrderRequest $request)
     {
-        $validated = $request->validate([
-            'city' => "required",
-            'main_street' => "required",
-            'house_number' => "required",
-            'phone' => "required",
-            'payment_type_id' => 'required',
-            'delivery_type_id' => 'required',
-        ]);
+        $validated = $request->validated();
 
         $validated['cart_id'] = FacadesCart::id();
         $validated['user_id'] = Auth::id();
@@ -65,21 +74,11 @@ class OrderController extends Controller
         return redirect(route('order.summary', compact('order')))->with('message', 'Order was created!');
     }
 
+
     public function summary(Order $order)
     {
         $order->load('cart.items', 'status', 'deliveryType', 'paymentType', 'currency');
 
         return Inertia::render('Order/Summary', compact('order'));
-    }
-
-    public function confirm(Order $order)
-    {
-        // Kinda sus too
-        $order->update(['status_id' => 2]);
-        $userEmail = Auth::user()->email;
-
-        Mail::to($userEmail)->send(new OrderEmail($order));
-
-        return redirect(route('order.index'))->with('message', 'Order was confirmed!');
     }
 }
