@@ -7,23 +7,25 @@ use App\Http\Controllers\CurrencyController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Middleware\CheckRole;
-use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-Route::get('/', function () {
+
+Route::get('/login', function () {
     return Inertia::render('Auth/Login');
 });
 
 
-Route::get('/dashboard', function () {
+Route::get('/', function () {
     return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->name('dashboard');
+
+Route::get('/product', [ProductController::class, 'index'])->name('product.index');
+Route::get('/product/{product}', [ProductController::class, 'show'])->name('product.show');
+
 
 Route::middleware('auth')->group(function () {
-    Route::get('/product/{product}', [ProductController::class, 'show'])->name('product.show');
     Route::post('/product/{product}/edit', [ProductController::class, 'update'])->name('product.update')->middleware(CheckRole::class);
-    Route::get('/product', [ProductController::class, 'index'])->name('product.index');
 
     Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
     Route::post('/cart-item/{product}', [CartItemController::class, 'store'])->name('cart.item.store');
