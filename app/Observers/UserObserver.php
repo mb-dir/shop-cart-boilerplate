@@ -17,8 +17,7 @@ class UserObserver
     public function created(User $user): void
     {
         $affiliate = Affiliate::createAffiliate($user);
-        dd($affiliate);
-        Mail::to($user->email)->send(new UserEmail($user));
+        Mail::to($user->email)->send(new UserEmail($user, $affiliate));
     }
 
 
