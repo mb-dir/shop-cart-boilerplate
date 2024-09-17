@@ -2,9 +2,12 @@
 
 namespace App\Observers;
 
+
+use App\Facades\Affiliate;
 use App\Mail\UserEmail;
 use App\Models\User;
 use Illuminate\Support\Facades\Mail;
+
 
 class UserObserver
 {
@@ -13,16 +16,11 @@ class UserObserver
      */
     public function created(User $user): void
     {
+        $affiliate = Affiliate::createAffiliate($user);
+        dd($affiliate);
         Mail::to($user->email)->send(new UserEmail($user));
     }
 
-    /**
-     * Handle the User "updated" event.
-     */
-    public function updated(User $user): void
-    {
-        //
-    }
 
     /**
      * Handle the User "deleted" event.
@@ -32,6 +30,16 @@ class UserObserver
         //
     }
 
+
+    /**
+     * Handle the User "force deleted" event.
+     */
+    public function forceDeleted(User $user): void
+    {
+        //
+    }
+
+
     /**
      * Handle the User "restored" event.
      */
@@ -40,10 +48,11 @@ class UserObserver
         //
     }
 
+
     /**
-     * Handle the User "force deleted" event.
+     * Handle the User "updated" event.
      */
-    public function forceDeleted(User $user): void
+    public function updated(User $user): void
     {
         //
     }
