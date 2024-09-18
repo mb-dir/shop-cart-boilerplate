@@ -15,7 +15,7 @@ class AffiliateService
     private string $baseUrl;
 
 
-    public function __construct($baseUrl = 'https://shop-cart-boilerplate.test/register?aff-user=')
+    public function __construct($baseUrl = 'https://shop-cart-boilerplate.test/register?aff-ref=')
     {
         $this->baseUrl = $baseUrl;
     }

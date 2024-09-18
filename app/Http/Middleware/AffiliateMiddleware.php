@@ -18,9 +18,9 @@ class AffiliateMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if ($request->has('aff-user')) {
+        if ($request->has('aff-ref')) {
             // Set a cookie for the affiliate user for the current session only
-            Cookie::queue('affiliate_user', $request->input('aff-user'), 0);
+            Cookie::queue('affiliate_referrer', $request->input('aff-ref'), 0);
         }
 
         return $next($request);

@@ -49,12 +49,11 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
-        $affiliateUserId = request()->cookie('affiliate_user');
-        Cookie::forget('affiliate_user');
+        $affiliateReferrerId = request()->cookie('affiliate_referrer');
 
-        if ($affiliateUserId) {
-            $user = User::firstWhere('id', $affiliateUserId);
-            session()->flash('message', 'You have used ' . $user->name . ' reflink');
+        if ($affiliateReferrerId) {
+            $affiliateReferrer = User::firstWhere('id', $affiliateReferrerId);
+            session()->flash('message', 'You have used ' . $affiliateReferrer->name . ' reflink');
         }
 
         $user = User::create([
@@ -67,6 +66,6 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return redirect()->route('dashboard')->withCookie(Cookie::forget('affiliate_user'));
+        return redirect()->route('dashboard')->withCookie(Cookie::forget('affiliate_referrer'));
     }
 }
